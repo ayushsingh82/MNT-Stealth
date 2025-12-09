@@ -5,8 +5,8 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex h-screen w-full overflow-hidden">
-      {/* Left black section with Lightning - 1/6 width */}
-      <div className="w-1/6 h-screen bg-black relative">
+      {/* Left black section with Lightning - 12.5% width */}
+      <div className="w-[12.5%] h-screen bg-black relative">
         <Lightning
           hue={220}
           xOffset={0}
@@ -16,9 +16,9 @@ export default function Home() {
         />
       </div>
 
-      {/* Middle section with background image - 2/3 width */}
+      {/* Middle section with background image - 75% width */}
       <div 
-        className="flex h-screen flex-col font-sans overflow-hidden relative w-2/3"
+        className="flex h-screen flex-col font-sans overflow-hidden relative w-3/4"
         style={{
           backgroundImage: 'url(https://wallpapers.com/images/hd/neon-galaxy-with-black-background-7xf3vcagh2c5cj4e.jpg)',
           backgroundSize: 'cover',
@@ -34,12 +34,11 @@ export default function Home() {
         
         <header className="flex flex-1 items-center justify-center px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col items-center text-center max-w-3xl gap-6 px-4">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white drop-shadow-lg">
-              Welcome to Your Journey
+            <p className="text-md font-black mb-2 text-white bg-black px-3 py-2 rounded-lg inline-block">Experience the Future of</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white drop-shadow-lg italic">
+              PRIVATE Transaction
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-zinc-200 max-w-2xl drop-shadow-md">
-              Discover amazing possibilities and unlock your potential. Start your adventure today and experience something extraordinary.
-            </p>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 text-white bg-black px-3 py-2 rounded-lg inline-block italic">on Mantle</h2>
             <Link 
               href="/get-started"
               className="mt-4 px-8 py-4 text-lg font-semibold rounded-full bg-white text-black transition-all hover:bg-zinc-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl inline-block"
@@ -50,8 +49,8 @@ export default function Home() {
         </header>
       </div>
 
-      {/* Right black section with Lightning - 1/6 width */}
-      <div className="w-1/6 h-screen bg-black relative">
+      {/* Right black section with Lightning - 12.5% width */}
+      <div className="w-[12.5%] h-screen bg-black relative">
         <Lightning
           hue={220}
           xOffset={0}

@@ -8,7 +8,7 @@ export default function CircleNavbar() {
           href="/"
           className="text-2xl font-bold text-white hover:text-zinc-200 transition-colors"
         >
-          x402
+          MNT-Stealth
         </Link>
       </div>
     </nav>

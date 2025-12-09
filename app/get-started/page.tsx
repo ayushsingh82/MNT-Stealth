@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Navbar from "../components/navbar/Navbar";
 import Lightning from "../components/Lightning";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export default function GetStarted() {
   const [walletType, setWalletType] = useState<'personal' | 'merchant' | null>(null);
@@ -31,27 +32,34 @@ export default function GetStarted() {
                 <button
                   className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${
                     walletType === 'personal' 
-                      ? 'bg-[#FCD119] text-black border-[#FCD119]' 
+                      ? 'bg-white text-black' 
                       : 'bg-gray-900 text-white hover:bg-gray-800'
                   }`}
                   onClick={() => setWalletType('personal')}
                 >
                   <div className="font-bold text-xl mb-1">Personal</div>
-                  <div className={`text-base ${walletType === 'personal' ? 'text-gray-800' : 'text-gray-300'}`}>For personal use</div>
+                  <div className={`text-base ${walletType === 'personal' ? 'text-black' : 'text-gray-300'}`}>For personal use</div>
                 </button>
                 
                 <button
                   className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${
                     walletType === 'merchant' 
-                      ? 'bg-[#FCD119] text-black border-[#FCD119]' 
+                      ? 'bg-white text-black' 
                       : 'bg-gray-900 text-white hover:bg-gray-800'
                   }`}
                   onClick={() => setWalletType('merchant')}
                 >
                   <div className="font-bold text-xl mb-1">Team</div>
-                  <div className={`text-base ${walletType === 'merchant' ? 'text-gray-800' : 'text-gray-300'}`}>need pro access</div>
+                  <div className={`text-base ${walletType === 'merchant' ? 'text-black' : 'text-gray-300'}`}>need pro access</div>
                 </button>
               </div>
+              
+              {/* Wallet Connect */}
+              {walletType && (
+                <div className="mt-6 flex justify-center">
+                  <ConnectButton />
+                </div>
+              )}
             </div>
           </div>
         </header>

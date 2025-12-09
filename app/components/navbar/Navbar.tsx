@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <nav className="w-full relative z-20">
@@ -9,9 +11,12 @@ export default function Navbar() {
           >
             Docs
           </a>
-          <h1 className="text-lg sm:text-xl font-bold text-white">
+          <Link 
+            href="/"
+            className="text-lg sm:text-xl font-bold text-white hover:text-zinc-200 transition-colors"
+          >
             x402
-          </h1>
+          </Link>
           <a 
             href="#product" 
             className="text-sm sm:text-base font-medium text-white hover:text-zinc-200 transition-colors"

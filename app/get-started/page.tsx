@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Navbar from "../components/navbar/Navbar";
 import Lightning from "../components/Lightning";
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export default function GetStarted() {
   const [walletType, setWalletType] = useState<'personal' | 'merchant' | null>(null);
@@ -54,12 +53,6 @@ export default function GetStarted() {
                 </button>
               </div>
               
-              {/* Wallet Connect */}
-              {walletType && (
-                <div className="mt-6 flex justify-center">
-                  <ConnectButton />
-                </div>
-              )}
             </div>
           </div>
         </header>
@@ -77,25 +70,61 @@ export default function GetStarted() {
         {/* Text overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-6">
           <div className="text-center space-y-4">
-            <h2 
-              className="text-3xl sm:text-4xl font-bold text-white"
-              style={{
-                textShadow: `
-                  0 0 10px rgba(100, 150, 255, 0.8),
-                  0 0 20px rgba(100, 150, 255, 0.6),
-                  0 0 30px rgba(100, 150, 255, 0.4),
-                  0 0 40px rgba(100, 150, 255, 0.3),
-                  0 0 70px rgba(100, 150, 255, 0.2),
-                  0 0 80px rgba(100, 150, 255, 0.1),
-                  2px 2px 4px rgba(0, 0, 0, 0.5)
-                `,
-                animation: 'pulse-glow 2s ease-in-out infinite alternate'
-              }}
-            >
-             Privacy via x402 
-            </h2>
-            <p className="text-md sm:text-md text-gray-200 drop-shadow-md max-w-xs">
-            PRIVACY AND VERIFICATION POWERED BY EIGENLABS
+            <div>
+              <h2 
+                className="text-5xl sm:text-4xl font-bold text-white block"
+                style={{
+                  textShadow: `
+                    0 0 10px rgba(100, 150, 255, 0.8),
+                    0 0 20px rgba(100, 150, 255, 0.6),
+                    0 0 30px rgba(100, 150, 255, 0.4),
+                    0 0 40px rgba(100, 150, 255, 0.3),
+                    0 0 70px rgba(100, 150, 255, 0.2),
+                    0 0 80px rgba(100, 150, 255, 0.1),
+                    2px 2px 4px rgba(0, 0, 0, 0.5)
+                  `,
+                  animation: 'pulse-glow 2s ease-in-out infinite alternate'
+                }}
+              >
+                Private.
+              </h2>
+              <h2 
+                className="text-5xl sm:text-4xl font-bold text-white block"
+                style={{
+                  textShadow: `
+                    0 0 10px rgba(100, 150, 255, 0.8),
+                    0 0 20px rgba(100, 150, 255, 0.6),
+                    0 0 30px rgba(100, 150, 255, 0.4),
+                    0 0 40px rgba(100, 150, 255, 0.3),
+                    0 0 70px rgba(100, 150, 255, 0.2),
+                    0 0 80px rgba(100, 150, 255, 0.1),
+                    2px 2px 4px rgba(0, 0, 0, 0.5)
+                  `,
+                  animation: 'pulse-glow 2s ease-in-out infinite alternate'
+                }}
+              >
+                Anonymous.
+              </h2>
+              <h2 
+                className="text-5xl sm:text-4xl font-bold text-white block"
+                style={{
+                  textShadow: `
+                    0 0 10px rgba(100, 150, 255, 0.8),
+                    0 0 20px rgba(100, 150, 255, 0.6),
+                    0 0 30px rgba(100, 150, 255, 0.4),
+                    0 0 40px rgba(100, 150, 255, 0.3),
+                    0 0 70px rgba(100, 150, 255, 0.2),
+                    0 0 80px rgba(100, 150, 255, 0.1),
+                    2px 2px 4px rgba(0, 0, 0, 0.5)
+                  `,
+                  animation: 'pulse-glow 2s ease-in-out infinite alternate'
+                }}
+              >
+                Unlinkable.
+              </h2>
+            </div>
+            <p className="text-md sm:text-md text-gray-200 drop-shadow-md max-w-xs mx-auto">
+            Welcome to the world of private transaction . Everything you need is privacy and we are here to help you with this
             </p>
           </div>
         </div>

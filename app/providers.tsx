@@ -7,11 +7,7 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
 import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
+  mantleSepoliaTestnet
 } from 'wagmi/chains';
 import {
   QueryClientProvider,
@@ -22,7 +18,7 @@ import { ReactNode } from 'react';
 const config = getDefaultConfig({
   appName: 'MNT-Stealth',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'YOUR_PROJECT_ID',
-  chains: [mainnet, polygon, optimism, arbitrum, base],
+  chains: [mantleSepoliaTestnet],
   ssr: true,
 });
 

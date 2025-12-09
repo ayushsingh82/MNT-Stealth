@@ -1,13 +1,23 @@
 export default function Navbar() {
   return (
-    <nav className="w-full border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <h1 className="text-xl font-semibold text-black dark:text-zinc-50">
-              Building x402 product on Eigen Layer
-            </h1>
-          </div>
+    <nav className="w-full relative z-20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-12 sm:h-14">
+          <a 
+            href="#docs" 
+            className="text-sm sm:text-base font-medium text-white hover:text-zinc-200 transition-colors"
+          >
+            Docs
+          </a>
+          <h1 className="text-lg sm:text-xl font-bold text-white">
+            x402
+          </h1>
+          <a 
+            href="#product" 
+            className="text-sm sm:text-base font-medium text-white hover:text-zinc-200 transition-colors"
+          >
+            Product
+          </a>
         </div>
       </div>
     </nav>

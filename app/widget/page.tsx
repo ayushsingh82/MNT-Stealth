@@ -23,16 +23,16 @@ const WidgetPage = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-black">
       {/* Left: Mnt-Stealth header and Fns stepper */}
-      <div className="w-full md:w-1/2 flex flex-col items-center md:items-start px-0 md:px-12 py-0 md:py-16 relative z-10 bg-black">
-        <div className="w-full flex justify-between items-center px-4 md:px-0 pt-8 md:pt-0 gap-4">
+      <div className="w-full md:w-1/2 flex flex-col items-center md:items-start px-0 md:px-12 py-0 md:py-16 relative z-10 bg-black border-r border-[#ff6b35]">
+        <div className="w-full flex justify-between items-center px-4 md:px-0 pt-2 md:pt-2 gap-4 mb-8">
           <Link href="/" className="focus:outline-none">
-            <div className="bg-black border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-6 py-3 rounded-lg cursor-pointer text-2xl font-black text-white mt-8 md:mt-0">
+            <div className="bg-[#ff6b35] border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-6 py-3 rounded-lg cursor-pointer text-2xl font-black text-white">
               <a href="/">Mnt-Stealth</a>
             </div>
           </Link>
           <button
             onClick={handleHistoryClick}
-            className="bg-black border-2 border-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] px-5 py-3 rounded-lg cursor-pointer text-lg font-bold text-white hover:bg-gray-800 hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 mt-8 md:mt-0 whitespace-nowrap"
+            className="bg-black border-2 border-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] px-5 py-3 rounded-lg cursor-pointer text-lg font-bold text-white hover:bg-[#ff6b35] hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 whitespace-nowrap"
           >
             History
           </button>

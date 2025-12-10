@@ -67,7 +67,7 @@ export default function Home() {
       {/* HEADER */}
       <div className="absolute top-6 left-6 z-10">
         <Link href="/" className="focus:outline-none">
-          <div className="bg-black border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-6 py-3 rounded-lg cursor-pointer">
+          <div className="bg-[#ff6b35] border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-6 py-3 rounded-lg cursor-pointer">
             <h1 className="text-2xl font-black text-white">Mnt-Stealth</h1>
           </div>
         </Link>
@@ -95,7 +95,7 @@ export default function Home() {
       <div className="max-w-5xl mx-auto px-4 pb-20 mt-78">
         <div className="text-center mb-12">
           <Link href="/widget">
-            <button className="bg-black border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-8 py-4 rounded-lg text-lg font-bold text-white hover:bg-black/90 hover:shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px]">Get Started</button>
+            <button className="bg-[#ff6b35] border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-8 py-4 rounded-lg text-lg font-bold text-white hover:bg-[#ff6b35]/90 hover:shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px]">Get Started</button>
           </Link>
         </div>
         <div className="grid grid-cols-12 gap-6 auto-rows-[180px]">

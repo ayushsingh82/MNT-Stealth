@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Fns, BackgroundBeamsDemo } from './screens';
+import { Fns } from './screens';
 import Link from 'next/link';
+import Plasma from '../components/Plasma';
 
 const WidgetPage = () => {
   const { isConnected } = useAccount();
@@ -41,10 +42,51 @@ const WidgetPage = () => {
         </div>
       </div>
 
-      {/* Right: Full black background, beam effect centered */}
-      <div className="w-full md:w-1/2 min-h-screen bg-black flex items-center justify-center p-0 m-0">
-        <div className="w-full h-full flex items-center justify-center">
-          <BackgroundBeamsDemo />
+      {/* Right: Full black background, Plasma effect centered */}
+      <div className="w-full md:w-1/2 min-h-screen bg-black relative overflow-hidden">
+        <div className="absolute inset-0 w-full h-full z-0" style={{ width: '100%', height: '100%' }}>
+          <Plasma 
+            color="#ff6b35"
+            speed={0.6}
+            direction="forward"
+            scale={1.1}
+            opacity={0.8}
+            mouseInteractive={true}
+          />
+        </div>
+        {/* Text overlay */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-6">
+          <div className="text-center space-y-4">
+            <div>
+              <h2 
+                className="text-5xl sm:text-4xl font-bold block"
+                style={{
+                  color: '#ff6b35'
+                }}
+              >
+                Private.
+              </h2>
+              <h2 
+                className="text-5xl sm:text-4xl font-bold block"
+                style={{
+                  color: '#ff6b35'
+                }}
+              >
+                Anonymous.
+              </h2>
+              <h2 
+                className="text-5xl sm:text-4xl font-bold block"
+                style={{
+                  color: '#ff6b35'
+                }}
+              >
+                Unlinkable.
+              </h2>
+            </div>
+            <p className="text-md sm:text-md text-gray-200 drop-shadow-md max-w-xs mx-auto">
+            Welcome to the world of private transaction . Everything you need is privacy and we are here to help you with this
+            </p>
+          </div>
         </div>
       </div>
       

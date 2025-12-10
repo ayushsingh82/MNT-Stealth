@@ -22,6 +22,19 @@ const nextConfig: NextConfig = {
       use: 'ignore-loader',
     });
 
+    // Ignore React Native modules in web environment
+    config.resolve = config.resolve || {};
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      '@react-native-async-storage/async-storage': false,
+    };
+
+    // Ignore .ts extensions in node_modules for @noble/curves
+    config.resolve.extensionAlias = {
+      '.js': ['.js', '.ts'],
+      '.jsx': ['.jsx', '.tsx'],
+    };
+
     return config;
   },
   // Exclude problematic packages from server-side rendering

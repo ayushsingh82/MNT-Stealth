@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Navbar from "../components/navbar/Navbar";
-import Lightning from "../components/Lightning";
+import Plasma from "../components/Plasma";
 
 export default function GetStarted() {
   const [walletType, setWalletType] = useState<'personal' | 'merchant' | null>(null);
@@ -32,7 +32,7 @@ export default function GetStarted() {
                   className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${
                     walletType === 'personal' 
                       ? 'bg-white text-black' 
-                      : 'bg-gray-900 text-white hover:bg-gray-800'
+                      : 'bg-[#141414] text-white hover:bg-gray-800'
                   }`}
                   onClick={() => setWalletType('personal')}
                 >
@@ -44,7 +44,7 @@ export default function GetStarted() {
                   className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${
                     walletType === 'merchant' 
                       ? 'bg-white text-black' 
-                      : 'bg-gray-900 text-white hover:bg-gray-800'
+                      : 'bg-[#141414] text-white hover:bg-gray-800'
                   }`}
                   onClick={() => setWalletType('merchant')}
                 >
@@ -58,66 +58,42 @@ export default function GetStarted() {
         </header>
       </div>
 
-      {/* Right section with Lightning component - 2/5 width */}
-      <div className="w-2/5 h-screen relative">
-        <Lightning
-          hue={220}
-          xOffset={0}
-          speed={1}
-          intensity={1}
-          size={1}
-        />
+      {/* Right section with Plasma component - 2/5 width */}
+      <div className="w-2/5 h-screen relative bg-black overflow-hidden">
+        <div className="absolute inset-0 w-full h-full z-0" style={{ width: '100%', height: '100%' }}>
+          <Plasma 
+            color="#ff6b35"
+            speed={0.6}
+            direction="forward"
+            scale={1.1}
+            opacity={0.8}
+            mouseInteractive={true}
+          />
+        </div>
         {/* Text overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-6">
           <div className="text-center space-y-4">
             <div>
               <h2 
-                className="text-5xl sm:text-4xl font-bold text-white block"
+                className="text-5xl sm:text-4xl font-bold block"
                 style={{
-                  textShadow: `
-                    0 0 10px rgba(100, 150, 255, 0.8),
-                    0 0 20px rgba(100, 150, 255, 0.6),
-                    0 0 30px rgba(100, 150, 255, 0.4),
-                    0 0 40px rgba(100, 150, 255, 0.3),
-                    0 0 70px rgba(100, 150, 255, 0.2),
-                    0 0 80px rgba(100, 150, 255, 0.1),
-                    2px 2px 4px rgba(0, 0, 0, 0.5)
-                  `,
-                  animation: 'pulse-glow 2s ease-in-out infinite alternate'
+                  color: '#ff6b35'
                 }}
               >
                 Private.
               </h2>
               <h2 
-                className="text-5xl sm:text-4xl font-bold text-white block"
+                className="text-5xl sm:text-4xl font-bold block"
                 style={{
-                  textShadow: `
-                    0 0 10px rgba(100, 150, 255, 0.8),
-                    0 0 20px rgba(100, 150, 255, 0.6),
-                    0 0 30px rgba(100, 150, 255, 0.4),
-                    0 0 40px rgba(100, 150, 255, 0.3),
-                    0 0 70px rgba(100, 150, 255, 0.2),
-                    0 0 80px rgba(100, 150, 255, 0.1),
-                    2px 2px 4px rgba(0, 0, 0, 0.5)
-                  `,
-                  animation: 'pulse-glow 2s ease-in-out infinite alternate'
+                  color: '#ff6b35'
                 }}
               >
                 Anonymous.
               </h2>
               <h2 
-                className="text-5xl sm:text-4xl font-bold text-white block"
+                className="text-5xl sm:text-4xl font-bold block"
                 style={{
-                  textShadow: `
-                    0 0 10px rgba(100, 150, 255, 0.8),
-                    0 0 20px rgba(100, 150, 255, 0.6),
-                    0 0 30px rgba(100, 150, 255, 0.4),
-                    0 0 40px rgba(100, 150, 255, 0.3),
-                    0 0 70px rgba(100, 150, 255, 0.2),
-                    0 0 80px rgba(100, 150, 255, 0.1),
-                    2px 2px 4px rgba(0, 0, 0, 0.5)
-                  `,
-                  animation: 'pulse-glow 2s ease-in-out infinite alternate'
+                  color: '#ff6b35'
                 }}
               >
                 Unlinkable.

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { motion } from 'framer-motion';
-import Lightning from './components/Lightning';
+import Plasma from './components/Plasma';
 
 const faqs = [
   {
@@ -25,35 +25,36 @@ const faqs = [
 ];
 
 export default function Home() {
-  // White circles instead of yellow, with gray border
-  const whiteCircles = [
+  // Plasma-colored circles matching the background effect
+  const plasmaCircles = [
     // Left corners
-    { className: 'fixed left-[-40px] top-[-40px] w-40 h-40', color: 'bg-white/70', blur: 'blur-sm', delay: 0 },
-    { className: 'fixed left-[-32px] bottom-[-32px] w-32 h-32', color: 'bg-white/70', blur: 'blur', delay: 0.2 },
+    { className: 'fixed left-[-40px] top-[-40px] w-40 h-40', color: 'bg-[#ff6b35]/70', blur: 'blur-sm', delay: 0 },
+    { className: 'fixed left-[-32px] bottom-[-32px] w-32 h-32', color: 'bg-[#ff6b35]/70', blur: 'blur', delay: 0.2 },
     // Right corners
-    { className: 'fixed right-[-40px] top-[-40px] w-40 h-40', color: 'bg-white/70', blur: 'blur-sm', delay: 0.4 },
-    { className: 'fixed right-[-32px] bottom-[-32px] w-32 h-32', color: 'bg-white/70', blur: 'blur', delay: 0.6 },
+    { className: 'fixed right-[-40px] top-[-40px] w-40 h-40', color: 'bg-[#ff6b35]/70', blur: 'blur-sm', delay: 0.4 },
+    { className: 'fixed right-[-32px] bottom-[-32px] w-32 h-32', color: 'bg-[#ff6b35]/70', blur: 'blur', delay: 0.6 },
   ];
 
   const [expandedFaq, setExpandedFaq] = React.useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-black font-sans tracking-tight relative overflow-x-hidden">
-      {/* Full-screen Lightning effect */}
-      <div className="fixed inset-0 w-full h-full z-0">
-        <Lightning
-          hue={220}
-          xOffset={0}
-          speed={1}
-          intensity={1}
-          size={1}
+      {/* Full-screen Plasma effect */}
+      <div className="fixed inset-0 w-screen h-screen z-0" style={{ width: '100vw', height: '100vh' }}>
+        <Plasma 
+          color="#ff6b35"
+          speed={0.6}
+          direction="forward"
+          scale={1.1}
+          opacity={0.8}
+          mouseInteractive={true}
         />
       </div>
 
       {/* Content overlay */}
       <div className="relative z-10">
-      {/* Animated white background circles with white border */}
-      {whiteCircles.map((circle, i) => (
+      {/* Animated plasma-colored background circles with white border */}
+      {plasmaCircles.map((circle, i) => (
         <motion.div
           key={i}
           initial={{ opacity: 0, scale: 0.9 }}
@@ -77,11 +78,11 @@ export default function Home() {
       {/* HERO */}
       <div className="relative py-20 px-4">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-full max-w-6xl h-128 bg-gradient-to-r from-black via-black to-black rounded-b-[50%] shadow-2xl flex items-end justify-center pb-8 border-2 border-white">
+          <div className="w-full max-w-6xl h-128 bg-transparent rounded-b-[50%] shadow-2xl flex items-end justify-center pb-8 border-2 border-white">
             <div className="text-center">
               <p className="text-md font-black mb-16 text-black bg-white px-3 py-2 rounded-lg inline-block">Experience the Future of</p>
               <h3 className="text-6xl font-bold font-black text-white italic mb-1">
-                PRIVATE Transaction
+              PRIVATE Transaction
               </h3>
               <h2 className="text-6xl font-black mb-4 text-black bg-white px-3 py-2 rounded-lg inline-block italic">on Mantle</h2>
              
@@ -99,12 +100,12 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-12 gap-6 auto-rows-[180px]">
           {/* Why Privacy Matters */}
-          <div className="col-span-12 md:col-span-6 row-span-2 bg-gray-900 border-2 border-white shadow-[8px_8px_0_0_rgba(255,255,255,1)] p-8 rounded-2xl flex flex-col justify-center">
+          <div className="col-span-12 md:col-span-6 row-span-2 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
             <h2 className="text-xl font-black mb-4 text-black bg-white px-3 py-2 rounded-lg inline-block">Why Privacy Matters</h2>
             <p className="text-sm text-white leading-relaxed">In the digital era, your financial privacy is non-negotiable. Our platform uses battle-tested, advanced cryptography so your transactions stay truly private—secure, anonymous, and transparent only to you.</p>
           </div>
           {/* Our Zero-Knowledge Edge */}
-          <div className="col-span-12 md:col-span-6 row-span-2 bg-gray-900 border-2 border-white shadow-[8px_8px_0_0_rgba(255,255,255,1)] p-8 rounded-2xl flex flex-col justify-center">
+          <div className="col-span-12 md:col-span-6 row-span-2 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
             <h2 className="text-xl font-black mb-4 text-black bg-white px-3 py-2 rounded-lg inline-block">Our Zero-Knowledge Edge</h2>
             <p className="text-sm text-white mb-4 leading-relaxed">Harness Mantle's advanced zero-knowledge proof technology for:</p>
             <ul className="space-y-2 text-sm">
@@ -115,7 +116,7 @@ export default function Home() {
             </ul>
           </div>
           {/* How It Works */}
-          <div className="col-span-12 md:col-span-8 row-span-2 bg-gray-900 border-2 border-white shadow-[8px_8px_0_0_rgba(255,255,255,1)] p-8 rounded-2xl flex flex-col justify-center">
+          <div className="col-span-12 md:col-span-8 row-span-2 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
             <h2 className="text-xl font-black mb-4 text-black bg-white px-3 py-2 rounded-lg inline-block">How It Works</h2>
             <p className="text-sm text-white mb-4 leading-relaxed">Your path to unbreakable privacy is just three simple steps away:</p>
             <div className="space-y-3">
@@ -125,12 +126,12 @@ export default function Home() {
             </div>
           </div>
           {/* The Future of Private Transactions */}
-          <div className="col-span-12 md:col-span-4 row-span-1 bg-gray-900 border-2 border-white shadow-[8px_8px_0_0_rgba(255,255,255,1)] p-8 rounded-2xl flex flex-col justify-center">
+          <div className="col-span-12 md:col-span-4 row-span-1 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
             <h3 className="text-lg font-black mb-2 text-black bg-white px-3 py-1 rounded-lg inline-block">The Future of Private Transactions</h3>
             <p className="text-white text-sm mt-2">We're building the next generation of blockchain privacy. Mantle's zero-knowledge proofs and advanced cryptography deliver truly anonymous transactions.</p>
           </div>
           {/* Advanced Privacy */}
-          <div className="col-span-12 md:col-span-4 row-span-1 bg-gray-900 border-2 border-white shadow-[8px_8px_0_0_rgba(255,255,255,1)] p-8 rounded-2xl flex flex-col justify-center">
+          <div className="col-span-12 md:col-span-4 row-span-1 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
             <h4 className="text-lg font-bold text-black mb-2 bg-white px-3 py-1 rounded-lg inline-block">Advanced Privacy</h4>
             <p className="text-white text-sm mt-2">Zero-knowledge proofs keep your transactions completely private while maintaining security and transparency.</p>
           </div>

@@ -12,7 +12,9 @@ export default function Navbar() {
             href="/"
             className="text-lg sm:text-xl font-bold text-white hover:text-zinc-200 transition-colors"
           >
-            MNT-Stealth
+          <div className="bg-black border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-6 py-3 rounded-lg cursor-pointer">
+            <h1 className="text-2xl font-black text-white">Mnt-Stealth</h1>
+          </div>
           </Link>
           <div className="flex-1 flex justify-center">
             <ConnectButton />

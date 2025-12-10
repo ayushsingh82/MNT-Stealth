@@ -21,18 +21,18 @@ const WidgetPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white">
-      {/* Left: POL-Stealth header and Fns stepper */}
-      <div className="w-full md:w-1/2 flex flex-col items-center md:items-start px-0 md:px-12 py-0 md:py-16 relative z-10 bg-white">
+    <div className="min-h-screen flex flex-col md:flex-row bg-black">
+      {/* Left: Mnt-Stealth header and Fns stepper */}
+      <div className="w-full md:w-1/2 flex flex-col items-center md:items-start px-0 md:px-12 py-0 md:py-16 relative z-10 bg-black">
         <div className="w-full flex justify-between items-center px-4 md:px-0 pt-8 md:pt-0 gap-4">
           <Link href="/" className="focus:outline-none">
-            <div className="bg-[#FCD119] border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-3 rounded-lg cursor-pointer text-2xl font-black text-black mt-8 md:mt-0">
-              <a href="/">POL-Stealth</a>
+            <div className="bg-black border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-6 py-3 rounded-lg cursor-pointer text-2xl font-black text-white mt-8 md:mt-0">
+              <a href="/">Mnt-Stealth</a>
             </div>
           </Link>
           <button
             onClick={handleHistoryClick}
-            className="bg-white border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] px-5 py-3 rounded-lg cursor-pointer text-lg font-bold text-black hover:bg-[#FCD119] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 mt-8 md:mt-0 whitespace-nowrap"
+            className="bg-black border-2 border-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] px-5 py-3 rounded-lg cursor-pointer text-lg font-bold text-white hover:bg-gray-800 hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 mt-8 md:mt-0 whitespace-nowrap"
           >
             History
           </button>

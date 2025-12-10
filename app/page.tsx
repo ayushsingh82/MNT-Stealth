@@ -94,7 +94,7 @@ export default function Home() {
       {/* MAIN CONTENT - BENTO GRID */}
       <div className="max-w-5xl mx-auto px-4 pb-20 mt-78">
         <div className="text-center mb-12">
-          <Link href="/get-started">
+          <Link href="/widget">
             <button className="bg-black border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-8 py-4 rounded-lg text-lg font-bold text-white hover:bg-black/90 hover:shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px]">Get Started</button>
           </Link>
         </div>

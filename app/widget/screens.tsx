@@ -11,15 +11,13 @@ import { parseEther, isAddress } from 'viem';
 const images: Record<string, string> = imagesJson;
 
 const CHAINS = [
-  { label: 'Polygon', value: 'Polygon' },
   { label: 'Mantle', value: 'Mantle' },
 ];
 
 const TOKENS = [
-  { name: 'USDT', chain: 'Polygon', label: 'Tether (USDT)' },
-  { name: 'USDC', chain: 'Polygon', label: 'USD Coin (USDC)' },
-  { name: 'POL', chain: 'Polygon', label: 'Polygon (POL)' },
   { name: 'MNT', chain: 'Mantle', label: 'Mantle (MNT)' },
+  { name: 'USDC', chain: 'Mantle', label: 'USD Coin (USDC)' },
+  { name: 'USDT', chain: 'Mantle', label: 'Tether (USDT)' },
 ];
 
 export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalletModal }: { showHistory: boolean; setShowHistory: (show: boolean) => void; showWalletModal?: boolean; setShowWalletModal?: (show: boolean) => void }) {
@@ -301,25 +299,25 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
           {/* Heading and subtitle OUTSIDE the box */}
           {step === 1 && (
             <div className="mb-6 text-center">
-              <h2 className="text-3xl font-extrabold mb-2 mt-6 text-black tracking-tight">Create Account</h2>
-              <p className="text-base text-gray-700">Set up your wallet to get started</p>
+              <h2 className="text-3xl font-extrabold mb-2 mt-6 text-white tracking-tight">Create Account</h2>
+              <p className="text-base text-white">Set up your wallet to get started</p>
             </div>
           )}
 
           {step === 4 && walletType === 'merchant' && (
             <div className="mb-6 text-center">
-              <h2 className="text-3xl font-extrabold mb-2 mt-6 text-black tracking-tight">Team Setup</h2>
-              <p className="text-base text-gray-700">Add team members and manage access levels</p>
+              <h2 className="text-3xl font-extrabold mb-2 mt-6 text-white tracking-tight">Team Setup</h2>
+              <p className="text-base text-white">Add team members and manage access levels</p>
             </div>
           )}
 
           {step === 2 ? (
             <div className="w-full min-h-[60vh] flex flex-col justify-center items-center mt-8">
-              <div className="w-full max-w-md bg-white/90 border-2 border-black border-r-8 border-b-8 rounded-3xl p-10 backdrop-blur-sm">
+              <div className="w-full max-w-md bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10">
                 <div className="mb-6">
-                  <label className="block mb-2 font-semibold text-black">Chain</label>
+                  <label className="block mb-2 font-semibold text-white">Chain</label>
                   <select
-                    className="w-full p-3 border-2 border-black rounded-xl text-lg bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] hover:border-[#FCD119] transition appearance-none shadow-md outline-none"
+                    className="w-full p-3 border-2 border-white rounded-xl text-lg bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] hover:border-[#ff6b35] transition appearance-none shadow-md outline-none"
                     value={selectedChain}
                     onChange={e => {
                       setSelectedChain(e.target.value);
@@ -333,9 +331,9 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                   </select>
                 </div>
                 <div className="mb-6">
-                  <label className="block mb-2 font-semibold text-black">Token</label>
+                  <label className="block mb-2 font-semibold text-white">Token</label>
                   <select
-                    className="w-full p-3 border-2 border-black rounded-xl text-lg bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] hover:border-[#FCD119] transition appearance-none shadow-md outline-none"
+                    className="w-full p-3 border-2 border-white rounded-xl text-lg bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] hover:border-[#ff6b35] transition appearance-none shadow-md outline-none"
                     value={selectedToken}
                     onChange={e => setSelectedToken(e.target.value)}
                     disabled={!selectedChain}
@@ -348,14 +346,14 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                 </div>
                 {selectedChain && selectedToken && (
                   <>
-                    <div className="text-black font-bold text-lg mb-1 mt-4">Selected</div>
-                    <div className="p-4 border-2 border-[#FCD119] bg-[#FCD119]/10 flex flex-col items-center rounded-none shadow-sm">
+                    <div className="text-white font-bold text-lg mb-1 mt-4">Selected</div>
+                    <div className="p-4 border-2 border-[#ff6b35] bg-[#ff6b35]/10 flex flex-col items-center rounded-none shadow-sm">
                       <div className="flex gap-4 items-center">
-                        <span className="flex items-center px-3 py-1 rounded-none bg-black text-white text-sm font-semibold border border-gray-300">
+                        <span className="flex items-center px-3 py-1 rounded-none bg-white text-black text-sm font-semibold border border-gray-300">
                           <img src={images[selectedChain]} alt={selectedChain + ' logo'} className="w-6 h-6 mr-2" />
                           {CHAINS.find(c => c.value === selectedChain)?.label}
                         </span>
-                        <span className="flex items-center px-3 py-1 rounded-none bg-[#FCD119] text-black text-sm font-semibold border border-gray-300">
+                        <span className="flex items-center px-3 py-1 rounded-none bg-[#ff6b35] text-white text-sm font-semibold border border-gray-300">
                           <img src={images[selectedToken.toLowerCase()]} alt={selectedToken + ' logo'} className="w-6 h-6 mr-2" />
                           {TOKENS.find(t => t.name === selectedToken && t.chain === selectedChain)?.label}
                         </span>
@@ -367,18 +365,18 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
             </div>
           ) : step === 3 ? (
             <div className="w-full min-h-[60vh] flex flex-col justify-center items-center mt-8">
-              <div className="w-full max-w-md bg-white/90 border-2 border-black border-r-8 border-b-8 rounded-3xl p-10 backdrop-blur-sm">
+              <div className="w-full max-w-md bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10">
                 <div className="mb-4 w-full flex justify-center">
                   <ConnectButton />
                 </div>
-                <div className="text-black font-bold text-lg mb-1 mt-2">Selected</div>
-                <div className="p-4 border-2 border-[#FCD119] bg-[#FCD119]/10 flex flex-col items-center rounded-none shadow-sm mb-6">
+                <div className="text-white font-bold text-lg mb-1 mt-2">Selected</div>
+                <div className="p-4 border-2 border-[#ff6b35] bg-[#ff6b35]/10 flex flex-col items-center rounded-none shadow-sm mb-6">
                   <div className="flex gap-4 items-center">
-                    <span className="flex items-center px-3 py-1 rounded-none bg-black text-white text-sm font-semibold border border-gray-300">
+                    <span className="flex items-center px-3 py-1 rounded-none bg-white text-black text-sm font-semibold border border-gray-300">
                       <img src={images[selectedChain]} alt={selectedChain + ' logo'} className="w-6 h-6 mr-2" />
                       {CHAINS.find(c => c.value === selectedChain)?.label}
                     </span>
-                    <span className="flex items-center px-3 py-1 rounded-none bg-[#FCD119] text-black text-sm font-semibold border border-gray-300">
+                    <span className="flex items-center px-3 py-1 rounded-none bg-[#ff6b35] text-white text-sm font-semibold border border-gray-300">
                       <img src={images[selectedToken.toLowerCase()]} alt={selectedToken + ' logo'} className="w-6 h-6 mr-2" />
                       {TOKENS.find(t => t.name === selectedToken && t.chain === selectedChain)?.label}
                     </span>
@@ -387,12 +385,12 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
 
                 {walletType === 'merchant' ? (
                   <div className="mt-4 w-full">
-                    <div className="text-black font-bold text-lg mb-4">Send to Team Members</div>
+                    <div className="text-white font-bold text-lg mb-4">Send to Team Members</div>
                     <div className="mb-4 flex gap-2">
                       <button
                         onClick={() => setIsBatchMode(!isBatchMode)}
-                        className={`px-4 py-2 rounded-lg border-2 border-black font-semibold text-sm ${
-                          isBatchMode ? 'bg-[#FCD119] text-black' : 'bg-white text-black hover:bg-gray-100'
+                        className={`px-4 py-2 rounded-lg border-2 border-white font-semibold text-sm ${
+                          isBatchMode ? 'bg-[#ff6b35] text-white' : 'bg-black text-white hover:bg-gray-800'
                         }`}
                       >
                         {isBatchMode ? 'Single Transaction' : 'Batch Transaction'}
@@ -422,22 +420,22 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                         </div>
                         <input
                           type="number"
-                          placeholder="Amount per member (POL)"
+                          placeholder="Amount per member (MNT)"
                           step="any"
                           value={batchAmount}
                           onChange={(e) => setBatchAmount(e.target.value)}
-                          className="w-full p-3 border-2 border-black rounded-xl text-lg bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] outline-none"
+                          className="w-full p-3 border-2 border-white rounded-xl text-lg bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] outline-none"
                           disabled={isSendingTransaction}
                         />
                         {selectedTeamMembers.length > 0 && batchAmount && (
-                          <div className="text-sm text-gray-700 p-2 bg-blue-50 rounded border-2 border-blue-200">
-                            Total: {selectedTeamMembers.length} × {batchAmount} POL = {(parseFloat(batchAmount || '0') * selectedTeamMembers.length).toFixed(4)} POL
+                          <div className="text-sm text-gray-300 p-2 bg-gray-800 rounded border-2 border-gray-600">
+                            Total: {selectedTeamMembers.length} × {batchAmount} MNT = {(parseFloat(batchAmount || '0') * selectedTeamMembers.length).toFixed(4)} MNT
                           </div>
                         )}
                         <button
                           type="submit"
                           disabled={isSendingTransaction || selectedTeamMembers.length === 0 || !batchAmount}
-                          className="w-full px-6 py-3 rounded-xl border-2 border-black font-bold text-lg bg-[#FCD119] text-black hover:bg-black hover:text-[#FCD119] transition disabled:opacity-50 shadow-md flex items-center justify-center gap-2"
+                          className="w-full px-6 py-3 rounded-xl border-2 border-white font-bold text-lg bg-[#ff6b35] text-white hover:bg-[#ff6b35]/80 transition disabled:opacity-50 shadow-md flex items-center justify-center gap-2"
                         >
                           {isSendingTransaction ? (
                             <>
@@ -473,11 +471,11 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                     ) : (
                       <form onSubmit={handleSendTransaction} className="flex flex-col gap-4">
                         <div className="mb-2">
-                          <label className="block mb-2 text-sm font-semibold text-black">Select Team Member:</label>
+                          <label className="block mb-2 text-sm font-semibold text-white">Select Team Member:</label>
                           <select
                             value={recipientAddress}
                             onChange={(e) => setRecipientAddress(e.target.value)}
-                            className="w-full p-3 border-2 border-black rounded-xl text-lg bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] outline-none"
+                            className="w-full p-3 border-2 border-white rounded-xl text-lg bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] outline-none"
                             disabled={isSendingTransaction}
                           >
                             <option value="">Select a team member</option>
@@ -490,17 +488,17 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                         </div>
                         <input
                           type="number"
-                          placeholder="Amount (POL)"
+                          placeholder="Amount (MNT)"
                           step="any"
                           value={amount}
                           onChange={(e) => setAmount(e.target.value)}
-                          className="w-full p-3 border-2 border-black rounded-xl text-lg bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] outline-none"
+                          className="w-full p-3 border-2 border-white rounded-xl text-lg bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] outline-none"
                           disabled={isSendingTransaction}
                         />
                         <button
                           type="submit"
                           disabled={isSendingTransaction || !recipientAddress || !amount}
-                          className="w-full px-6 py-3 rounded-xl border-2 border-black font-bold text-lg bg-[#FCD119] text-black hover:bg-black hover:text-[#FCD119] transition disabled:opacity-50 shadow-md flex items-center justify-center gap-2"
+                          className="w-full px-6 py-3 rounded-xl border-2 border-white font-bold text-lg bg-[#ff6b35] text-white hover:bg-[#ff6b35]/80 transition disabled:opacity-50 shadow-md flex items-center justify-center gap-2"
                         >
                           {isSendingTransaction ? (
                             <>
@@ -537,16 +535,16 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                   </div>
                 ) : (
                   <div>
-                    <div className="text-black font-bold text-lg mb-4">Do you want to Pay or Receive?</div>
+                    <div className="text-white font-bold text-lg mb-4">Do you want to Pay or Receive?</div>
                     <div className="flex gap-8 justify-center mb-4">
                       <button
-                        className={`px-8 py-3 rounded-xl border-2 border-black font-bold text-lg bg-[#FCD119] text-black hover:bg-black hover:text-[#FCD119] transition ${payOrReceive === 'pay' ? 'ring-2 ring-[#FCD119]' : ''}`}
+                        className={`px-8 py-3 rounded-xl border-2 border-white font-bold text-lg bg-[#ff6b35] text-white hover:bg-[#ff6b35]/80 transition ${payOrReceive === 'pay' ? 'ring-2 ring-[#ff6b35]' : ''}`}
                         onClick={() => setPayOrReceive('pay')}
                       >
                         Pay
                       </button>
                       <button
-                        className={`px-8 py-3 rounded-xl border-2 border-black font-bold text-lg bg-black text-white hover:bg-[#FCD119] hover:text-black transition ${payOrReceive === 'receive' ? 'ring-2 ring-[#FCD119]' : ''}`}
+                        className={`px-8 py-3 rounded-xl border-2 border-white font-bold text-lg bg-black text-white hover:bg-gray-800 transition ${payOrReceive === 'receive' ? 'ring-2 ring-[#ff6b35]' : ''}`}
                         onClick={() => setPayOrReceive('receive')}
                       >
                         Receive
@@ -560,7 +558,7 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                           placeholder="Recipient Address"
                           value={recipientAddress}
                           onChange={(e) => setRecipientAddress(e.target.value)}
-                          className="w-full p-3 border-2 border-black rounded-xl text-lg bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] outline-none"
+                          className="w-full p-3 border-2 border-white rounded-xl text-lg bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] outline-none"
                           disabled={isSendingTransaction}
                         />
                         <input
@@ -569,13 +567,13 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                           step="any"
                           value={amount}
                           onChange={(e) => setAmount(e.target.value)}
-                          className="w-full p-3 border-2 border-black rounded-xl text-lg bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] outline-none"
+                          className="w-full p-3 border-2 border-white rounded-xl text-lg bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] outline-none"
                           disabled={isSendingTransaction}
                         />
                         <button
                           type="submit"
                           disabled={isSendingTransaction || !recipientAddress || !amount}
-                          className="w-full px-6 py-3 rounded-xl border-2 border-black font-bold text-lg bg-[#FCD119] text-black hover:bg-black hover:text-[#FCD119] transition disabled:opacity-50 shadow-md flex items-center justify-center gap-2"
+                          className="w-full px-6 py-3 rounded-xl border-2 border-white font-bold text-lg bg-[#ff6b35] text-white hover:bg-[#ff6b35]/80 transition disabled:opacity-50 shadow-md flex items-center justify-center gap-2"
                         >
                           {isSendingTransaction ? (
                             <>
@@ -612,17 +610,17 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
 
                     {payOrReceive === 'receive' && (
                       <div className="mt-4 w-full">
-                        <div className="text-center text-black font-semibold text-lg mb-4">
+                        <div className="text-center text-white font-semibold text-lg mb-4">
                           Generate your stealth address
                         </div>
                         <button
                           onClick={generateStealthAddress}
                           disabled={isGenerating}
-                          className="w-full px-6 py-3 rounded-xl border-2 border-black font-bold text-lg bg-[#FCD119] text-black hover:bg-black hover:text-[#FCD119] transition disabled:opacity-50 shadow-md flex items-center justify-center gap-2"
+                          className="w-full px-6 py-3 rounded-xl border-2 border-white font-bold text-lg bg-[#ff6b35] text-white hover:bg-[#ff6b35]/80 transition disabled:opacity-50 shadow-md flex items-center justify-center gap-2"
                         >
                           {isGenerating ? (
                             <>
-                              <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                               Generating Private Address...
                             </>
                           ) : (
@@ -632,19 +630,19 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                           )}
                         </button>
                         {stealthAddress && (
-                          <div className="mt-4 p-4 bg-gradient-to-r from-[#FCD119]/10 to-yellow-100/20 border-2 border-[#FCD119] rounded-xl">
+                          <div className="mt-4 p-4 bg-gradient-to-r from-[#ff6b35]/10 to-orange-900/20 border-2 border-[#ff6b35] rounded-xl">
                             <div className="flex items-center gap-2 mb-3">
                               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                              <div className="text-sm font-bold text-green-700">Stealth Address Generated</div>
+                              <div className="text-sm font-bold text-green-300">Stealth Address Generated</div>
                             </div>
-                            <div className="text-xs font-semibold text-gray-700 mb-2">Your Private Receiving Address:</div>
-                            <div className="text-xs font-mono text-black break-all bg-white p-3 rounded-lg border-2 border-gray-200 shadow-sm">
+                            <div className="text-xs font-semibold text-gray-300 mb-2">Your Private Receiving Address:</div>
+                            <div className="text-xs font-mono text-white break-all bg-black p-3 rounded-lg border-2 border-gray-700 shadow-sm">
                               {stealthAddress}
                             </div>
                             <div className="flex gap-2 mt-3">
                               <button
                                 onClick={() => navigator.clipboard.writeText(stealthAddress)}
-                                className="flex-1 px-3 py-2 text-xs bg-black text-white rounded-lg hover:bg-gray-800 transition font-semibold"
+                                className="flex-1 px-3 py-2 text-xs bg-white text-black rounded-lg hover:bg-gray-200 transition font-semibold"
                               >
                                 📋 Copy Address
                               </button>
@@ -652,12 +650,12 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                                 onClick={() => {
                                   alert('QR Code feature coming soon!');
                                 }}
-                                className="px-3 py-2 text-xs bg-[#FCD119] text-black rounded-lg hover:bg-yellow-400 transition font-semibold"
+                                className="px-3 py-2 text-xs bg-[#ff6b35] text-white rounded-lg hover:bg-orange-400 transition font-semibold"
                               >
                                 📱 QR Code
                               </button>
                             </div>
-                            <div className="mt-3 text-xs text-gray-600 bg-blue-50 p-2 rounded border-l-4 border-blue-400">
+                            <div className="mt-3 text-xs text-gray-300 bg-blue-900 p-2 rounded border-l-4 border-blue-700">
                               <strong>ℹ️ Privacy Note:</strong> This address is unique to this transaction and cannot be linked to your main wallet.
                             </div>
                           </div>
@@ -670,24 +668,24 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
             </div>
           ) : step === 4 && walletType === 'merchant' ? (
             <div className="w-full min-h-[60vh] flex flex-col justify-center items-center mt-8">
-              <div className="w-full max-w-md bg-white/90 border-2 border-black border-r-8 border-b-8 rounded-3xl p-10 backdrop-blur-sm">
+              <div className="w-full max-w-md bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10">
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-black mb-2">Team Management</h2>
-                  <p className="text-sm text-gray-600">Manage your team members and their access levels</p>
+                  <h2 className="text-2xl font-bold text-white mb-2">Team Management</h2>
+                  <p className="text-sm text-gray-300">Manage your team members and their access levels</p>
                 </div>
                 <div className="space-y-3 mb-6 max-h-[400px] overflow-y-auto">
                   {teamMembers.map((member) => (
-                    <div key={member.id} className="p-4 bg-gray-50 rounded-lg border-2 border-gray-200">
+                    <div key={member.id} className="p-4 bg-gray-900 rounded-lg border-2 border-white">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex-1">
-                          <div className="font-semibold text-black">{member.name}</div>
-                          <div className="text-xs text-gray-600 font-mono">{member.address.slice(0, 6)}...{member.address.slice(-4)}</div>
+                          <div className="font-semibold text-white">{member.name}</div>
+                          <div className="text-xs text-gray-300 font-mono">{member.address.slice(0, 6)}...{member.address.slice(-4)}</div>
                         </div>
                         <div className="flex items-center gap-2">
                           <select
                             value={member.role}
                             onChange={(e) => handleUpdateMemberRole(member.id, e.target.value as TeamMemberRole)}
-                            className="px-3 py-1 text-xs border-2 border-black rounded-lg bg-white font-semibold"
+                            className="px-3 py-1 text-xs border-2 border-white rounded-lg bg-black text-white font-semibold"
                             disabled={member.role === 'admin' && teamMembers.filter(m => m.role === 'admin').length === 1}
                           >
                             <option value="admin">Admin</option>
@@ -697,7 +695,7 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                           {!(member.role === 'admin' && teamMembers.filter(m => m.role === 'admin').length === 1) && (
                             <button
                               onClick={() => handleRemoveTeamMember(member.id)}
-                              className="px-3 py-1 text-xs bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold"
+                              className="px-3 py-1 text-xs bg-red-700 text-white rounded-lg hover:bg-red-800 transition font-semibold"
                             >
                               Remove
                             </button>
@@ -706,52 +704,52 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                       </div>
                       <div className="flex items-center gap-2 mt-2">
                         <span className={`px-2 py-1 text-xs rounded font-semibold ${
-                          member.role === 'admin' ? 'bg-purple-100 text-purple-700' :
-                          member.role === 'member' ? 'bg-blue-100 text-blue-700' :
-                          'bg-gray-100 text-black'
+                          member.role === 'admin' ? 'bg-purple-900 text-purple-300' :
+                          member.role === 'member' ? 'bg-blue-900 text-blue-300' :
+                          'bg-gray-900 text-white'
                         }`}>
                           {member.role.charAt(0).toUpperCase() + member.role.slice(1)}
                         </span>
                         <a
-                          href={`https://amoy.polygonscan.com/address/${member.address}`}
+                          href={`https://explorer.mantle.xyz/address/${member.address}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-blue-600 hover:text-blue-800 underline"
+                          className="text-xs text-blue-400 hover:text-blue-200 underline"
                         >
-                          View on PolygonScan →
+                          View on Explorer →
                         </a>
                       </div>
                     </div>
                   ))}
                 </div>
                 {showAddMember ? (
-                  <div className="p-4 bg-[#FCD119]/10 border-2 border-[#FCD119] rounded-xl mb-4">
+                  <div className="p-4 bg-[#ff6b35]/10 border-2 border-[#ff6b35] rounded-xl mb-4">
                     <div className="mb-4">
-                      <label className="block mb-2 text-sm font-semibold text-black">Member Name</label>
+                      <label className="block mb-2 text-sm font-semibold text-white">Member Name</label>
                       <input
                         type="text"
                         placeholder="Enter member name"
                         value={newMemberName}
                         onChange={(e) => setNewMemberName(e.target.value)}
-                        className="w-full p-2 border-2 border-black rounded-lg text-sm bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] outline-none"
+                        className="w-full p-2 border-2 border-white rounded-lg text-sm bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] outline-none"
                       />
                     </div>
                     <div className="mb-4">
-                      <label className="block mb-2 text-sm font-semibold text-black">Wallet Address</label>
+                      <label className="block mb-2 text-sm font-semibold text-white">Wallet Address</label>
                       <input
                         type="text"
                         placeholder="0x..."
                         value={newMemberAddress}
                         onChange={(e) => setNewMemberAddress(e.target.value)}
-                        className="w-full p-2 border-2 border-black rounded-lg text-sm bg-white text-black font-mono font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] outline-none"
+                        className="w-full p-2 border-2 border-white rounded-lg text-sm bg-black text-white font-mono font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] outline-none"
                       />
                     </div>
                     <div className="mb-4">
-                      <label className="block mb-2 text-sm font-semibold text-black">Role</label>
+                      <label className="block mb-2 text-sm font-semibold text-white">Role</label>
                       <select
                         value={newMemberRole}
                         onChange={(e) => setNewMemberRole(e.target.value as TeamMemberRole)}
-                        className="w-full p-2 border-2 border-black rounded-lg text-sm bg-white text-black font-semibold focus:ring-2 focus:ring-[#FCD119] focus:border-[#FCD119] outline-none"
+                        className="w-full p-2 border-2 border-white rounded-lg text-sm bg-black text-white font-semibold focus:ring-2 focus:ring-[#ff6b35] focus:border-[#ff6b35] outline-none"
                       >
                         <option value="admin">Admin</option>
                         <option value="member">Member</option>
@@ -761,7 +759,7 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                     <div className="flex gap-2">
                       <button
                         onClick={handleAddTeamMember}
-                        className="flex-1 px-4 py-2 bg-[#FCD119] text-black rounded-lg border-2 border-black font-bold hover:bg-black hover:text-[#FCD119] transition"
+                        className="flex-1 px-4 py-2 bg-[#ff6b35] text-white rounded-lg border-2 border-white font-bold hover:bg-black hover:text-[#ff6b35] transition"
                       >
                         Add Member
                       </button>
@@ -772,7 +770,7 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                           setNewMemberName('');
                           setNewMemberRole('member');
                         }}
-                        className="px-4 py-2 bg-white text-black rounded-lg border-2 border-black font-bold hover:bg-gray-100 transition"
+                        className="px-4 py-2 bg-white text-black rounded-lg border-2 border-white font-bold hover:bg-gray-100 transition"
                       >
                         Cancel
                       </button>
@@ -781,14 +779,14 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                 ) : (
                   <button
                     onClick={() => setShowAddMember(true)}
-                    className="w-full px-6 py-3 rounded-xl border-2 border-black font-bold text-lg bg-[#FCD119] text-black hover:bg-black hover:text-[#FCD119] transition shadow-md"
+                    className="w-full px-6 py-3 rounded-xl border-2 border-white font-bold text-lg bg-[#ff6b35] text-white hover:bg-black hover:text-[#ff6b35] transition shadow-md"
                   >
                     + Add Team Member
                   </button>
                 )}
-                <div className="mt-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg">
-                  <div className="text-sm font-semibold text-black mb-2">Role Permissions:</div>
-                  <div className="text-xs text-gray-700 space-y-1">
+                <div className="mt-6 p-4 bg-blue-900 border-2 border-blue-700 rounded-lg">
+                  <div className="text-sm font-semibold text-white mb-2">Role Permissions:</div>
+                  <div className="text-xs text-gray-300 space-y-1">
                     <div><strong>Admin:</strong> Full access - can add/remove members, send transactions, manage settings</div>
                     <div><strong>Member:</strong> Can send transactions and view team activity</div>
                     <div><strong>Viewer:</strong> Read-only access - can view transactions and team activity</div>
@@ -797,24 +795,24 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
               </div>
             </div>
           ) : (
-            <div className="w-full max-w-md bg-white/90 border-2 border-black border-r-8 border-b-8 rounded-3xl p-10 mt-0 md:mt-4 backdrop-blur-sm">
+            <div className="w-full max-w-md bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10 mt-0 md:mt-4">
               {step === 1 && (
                 <>
-                  <div className="mb-2 text-lg font-semibold text-black">Wallet Type</div>
+                  <div className="mb-2 text-lg font-semibold text-white">Wallet Type</div>
                   <div className="flex flex-col gap-4 mb-8">
                     <button
-                      className={`py-3 px-6 border-4 border-black rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${walletType === 'personal' ? 'bg-[#FCD119] text-black' : 'bg-white text-black hover:bg-[#FCD119]/20'}`}
+                      className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${walletType === 'personal' ? 'bg-[#ff6b35] text-white' : 'bg-black text-white hover:bg-gray-800 border-white'}`}
                       onClick={() => setWalletType('personal')}
                     >
                       <div className="font-bold text-xl mb-1">Personal</div>
-                      <div className="text-gray-700 text-base">For personal use</div>
+                      <div className={`text-base ${walletType === 'personal' ? 'text-white' : 'text-gray-300'}`}>For personal use</div>
                     </button>
                     <button
-                      className={`py-3 px-6 border-4 border-black rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${walletType === 'merchant' ? 'bg-[#FCD119] text-black' : 'bg-white text-black hover:bg-[#FCD119]/20'}`}
+                      className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${walletType === 'merchant' ? 'bg-[#ff6b35] text-white' : 'bg-black text-white hover:bg-gray-800 border-white'}`}
                       onClick={() => setWalletType('merchant')}
                     >
                       <div className="font-bold text-xl mb-1">Team</div>
-                      <div className="text-gray-700 text-base">need pro access</div>
+                      <div className={`text-base ${walletType === 'merchant' ? 'text-white' : 'text-gray-300'}`}>need pro access</div>
                     </button>
                   </div>
                 </>
@@ -826,14 +824,14 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
           {!showHistory && (
             <div className="flex gap-6 mt-8 w-full max-w-md justify-center">
               <button
-                className="px-8 py-3 rounded-xl border-2 border-black font-bold text-lg bg-white text-black hover:bg-[#FCD119] hover:text-black transition disabled:opacity-50 shadow-md"
+                className="px-8 py-3 rounded-xl border-2 border-white font-bold text-lg bg-black text-white hover:bg-gray-800 transition disabled:opacity-50 shadow-md"
                 disabled={step === 1}
                 onClick={() => setStep(step - 1)}
               >
                 Back
               </button>
               <button
-                className="px-8 py-3 rounded-xl border-2 border-black font-bold text-lg bg-black text-white hover:bg-[#FCD119] hover:text-black transition disabled:opacity-50 shadow-md"
+                className="px-8 py-3 rounded-xl border-2 border-white font-bold text-lg bg-[#ff6b35] text-white hover:bg-[#ff6b35]/80 transition disabled:opacity-50 shadow-md"
                 disabled={step === 1 ? !canNextStep1 : step === 2 ? !canNextStep2 : step === 4 ? teamMembers.length === 0 : false}
                 onClick={() => {
                   if (step === 1 && canNextStep1) setStep(2);

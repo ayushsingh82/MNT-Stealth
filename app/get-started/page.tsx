@@ -11,14 +11,10 @@ import imagesJson from '../widget/images.json';
 const images: Record<string, string> = imagesJson;
 
 const CHAINS = [
-  { label: 'Polygon', value: 'Polygon' },
   { label: 'Mantle', value: 'Mantle' },
 ];
 
 const TOKENS = [
-  { name: 'USDT', chain: 'Polygon', label: 'Tether (USDT)' },
-  { name: 'USDC', chain: 'Polygon', label: 'USD Coin (USDC)' },
-  { name: 'POL', chain: 'Polygon', label: 'Polygon (POL)' },
   { name: 'MNT', chain: 'Mantle', label: 'Mantle (MNT)' },
 ];
 
@@ -127,40 +123,40 @@ export default function GetStarted() {
           <div className="w-full max-w-md">
             {/* Heading and subtitle OUTSIDE the box */}
             {step === 1 && (
-              <div className="mb-6 text-center">
-                <h2 className="text-3xl font-extrabold mb-2 text-white tracking-tight">Create Account</h2>
-                <p className="text-base text-gray-300">Set up your wallet to get started</p>
-              </div>
+            <div className="mb-6 text-center">
+              <h2 className="text-3xl font-extrabold mb-2 text-white tracking-tight">Create Account</h2>
+              <p className="text-base text-gray-300">Set up your wallet to get started</p>
+            </div>
             )}
 
             {/* Step 1: Wallet Type Selection */}
             {step === 1 && (
-              <div className="bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10">
-                <div className="mb-2 text-lg font-semibold text-white">Wallet Type</div>
-                <div className="flex flex-col gap-4">
-                  <button
-                    className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${
-                      walletType === 'personal' 
-                        ? 'bg-white text-black' 
+            <div className="bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10">
+              <div className="mb-2 text-lg font-semibold text-white">Wallet Type</div>
+              <div className="flex flex-col gap-4">
+                <button
+                  className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${
+                    walletType === 'personal' 
+                      ? 'bg-white text-black' 
                         : 'bg-[#141414] text-white hover:bg-gray-800'
-                    }`}
-                    onClick={() => setWalletType('personal')}
-                  >
-                    <div className="font-bold text-xl mb-1">Personal</div>
-                    <div className={`text-base ${walletType === 'personal' ? 'text-black' : 'text-gray-300'}`}>For personal use</div>
-                  </button>
-                  <button
-                    className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${
-                      walletType === 'merchant' 
-                        ? 'bg-white text-black' 
+                  }`}
+                  onClick={() => setWalletType('personal')}
+                >
+                  <div className="font-bold text-xl mb-1">Personal</div>
+                  <div className={`text-base ${walletType === 'personal' ? 'text-black' : 'text-gray-300'}`}>For personal use</div>
+                </button>
+                <button
+                  className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${
+                    walletType === 'merchant' 
+                      ? 'bg-white text-black' 
                         : 'bg-[#141414] text-white hover:bg-gray-800'
-                    }`}
-                    onClick={() => setWalletType('merchant')}
-                  >
-                    <div className="font-bold text-xl mb-1">Team</div>
-                    <div className={`text-base ${walletType === 'merchant' ? 'text-black' : 'text-gray-300'}`}>need pro access</div>
-                  </button>
-                </div>
+                  }`}
+                  onClick={() => setWalletType('merchant')}
+                >
+                  <div className="font-bold text-xl mb-1">Team</div>
+                  <div className={`text-base ${walletType === 'merchant' ? 'text-black' : 'text-gray-300'}`}>need pro access</div>
+                </button>
+              </div>
               </div>
             )}
 

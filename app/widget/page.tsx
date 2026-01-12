@@ -26,7 +26,7 @@ const WidgetPage = () => {
       <div className="w-full md:w-1/2 flex flex-col items-center md:items-start px-0 md:px-12 py-0 md:py-16 relative z-10 bg-black border-r border-[#ff6b35]">
         <div className="w-full flex justify-between items-center px-4 md:px-0 pt-2 md:pt-2 gap-4 mb-8">
           <Link href="/" className="focus:outline-none">
-            <div className="bg-[#ff6b35] border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-6 py-3 rounded-lg cursor-pointer text-2xl font-black text-white">
+            <div className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-3 rounded-lg cursor-pointer text-2xl font-black text-black">
               <a href="/">Mnt-Stealth</a>
             </div>
           </Link>

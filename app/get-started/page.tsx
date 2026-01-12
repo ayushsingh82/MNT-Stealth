@@ -197,11 +197,9 @@ export default function GetStarted() {
                   <div className="p-4 border-2 border-white bg-white/10 flex flex-col items-center rounded-none shadow-sm">
                     <div className="flex gap-4 items-center">
                       <span className="flex items-center px-3 py-1 rounded-none bg-white text-black text-sm font-semibold border border-gray-300">
-                        <img src={images[selectedChain]} alt={selectedChain + ' logo'} className="w-6 h-6 mr-2" />
                         {CHAINS.find(c => c.value === selectedChain)?.label}
                       </span>
                       <span className="flex items-center px-3 py-1 rounded-none bg-white text-black text-sm font-semibold border border-gray-300">
-                        <img src={images[selectedToken.toLowerCase()]} alt={selectedToken + ' logo'} className="w-6 h-6 mr-2" />
                         {TOKENS.find(t => t.name === selectedToken && t.chain === selectedChain)?.label}
                       </span>
                     </div>
@@ -220,11 +218,9 @@ export default function GetStarted() {
                 <div className="p-4 border-2 border-white bg-white/10 flex flex-col items-center rounded-none shadow-sm mb-6">
                   <div className="flex gap-4 items-center">
                     <span className="flex items-center px-3 py-1 rounded-none bg-white text-black text-sm font-semibold border border-gray-300">
-                      <img src={images[selectedChain]} alt={selectedChain + ' logo'} className="w-6 h-6 mr-2" />
                       {CHAINS.find(c => c.value === selectedChain)?.label}
                     </span>
                     <span className="flex items-center px-3 py-1 rounded-none bg-white text-black text-sm font-semibold border border-gray-300">
-                      <img src={images[selectedToken.toLowerCase()]} alt={selectedToken + ' logo'} className="w-6 h-6 mr-2" />
                       {TOKENS.find(t => t.name === selectedToken && t.chain === selectedChain)?.label}
                     </span>
                   </div>

@@ -2,43 +2,11 @@
 
 import Link from 'next/link';
 import React from 'react';
-import { motion } from 'framer-motion';
 import Plasma from './components/Plasma';
 
-const faqs = [
-  {
-    q: 'What is Mnt-Stealth?',
-    a: 'Mnt-Stealth is a privacy protocol for private transactions on Mantle using stealth addresses and zero-knowledge cryptography.'
-  },
-  {
-    q: 'How do stealth addresses work?',
-    a: 'Stealth addresses allow you to receive funds privately. Only the receiver can detect and claim the funds.'
-  },
-  {
-    q: 'Is my wallet compatible?',
-    a: 'Any EVM-compatible wallet can be used with Mnt-Stealth.'
-  },
-  {
-    q: 'Is Mnt-Stealth open source?',
-    a: 'Yes! The code is open source and available on GitHub.'
-  },
-];
-
 export default function Home() {
-  // Plasma-colored circles matching the background effect
-  const plasmaCircles = [
-    // Left corners
-    { className: 'fixed left-[-40px] top-[-40px] w-40 h-40', color: 'bg-[#ff6b35]/70', blur: 'blur-sm', delay: 0 },
-    { className: 'fixed left-[-32px] bottom-[-32px] w-32 h-32', color: 'bg-[#ff6b35]/70', blur: 'blur', delay: 0.2 },
-    // Right corners
-    { className: 'fixed right-[-40px] top-[-40px] w-40 h-40', color: 'bg-[#ff6b35]/70', blur: 'blur-sm', delay: 0.4 },
-    { className: 'fixed right-[-32px] bottom-[-32px] w-32 h-32', color: 'bg-[#ff6b35]/70', blur: 'blur', delay: 0.6 },
-  ];
-
-  const [expandedFaq, setExpandedFaq] = React.useState<number | null>(null);
-
   return (
-    <div className="min-h-screen bg-black font-sans tracking-tight relative overflow-x-hidden">
+    <div className="h-screen bg-black font-sans tracking-tight relative overflow-hidden">
       {/* Full-screen Plasma effect */}
       <div className="fixed inset-0 w-screen h-screen z-0" style={{ width: '100vw', height: '100vh' }}>
         <Plasma 
@@ -52,114 +20,47 @@ export default function Home() {
       </div>
 
       {/* Content overlay */}
-      <div className="relative z-10">
-      {/* Animated plasma-colored background circles with white border */}
-      {plasmaCircles.map((circle, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: [0.9, 1.05, 0.9] }}
-          transition={{ duration: 10, repeat: Infinity, delay: circle.delay, ease: 'easeInOut' }}
-          className={`${circle.className} ${circle.color} ${circle.blur} rounded-full border-2 border-white pointer-events-none z-0`}
-        />
-      ))}
-
-      {/* HEADER */}
-      <div className="absolute top-6 left-6 z-10">
-        <Link href="/" className="focus:outline-none">
-          <div className="bg-[#ff6b35] border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-6 py-3 rounded-lg cursor-pointer">
-            <h1 className="text-2xl font-black text-white">Mnt-Stealth</h1>
-          </div>
-        </Link>
-      </div>
-
-     
-
-      {/* HERO */}
-      <div className="relative py-20 px-4">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-full max-w-6xl h-128 bg-transparent rounded-b-[50%] shadow-2xl flex items-end justify-center pb-8 border-2 border-white">
-            <div className="text-center">
-              <p className="text-md font-black mb-16 text-black bg-white px-3 py-2 rounded-lg inline-block">Experience the Future of</p>
-              <h3 className="text-6xl font-bold font-black text-white italic mb-1">
-              PRIVATE Transaction
-              </h3>
-              <h2 className="text-6xl font-black mb-4 text-black bg-white px-3 py-2 rounded-lg inline-block italic">on Mantle</h2>
-             
+      <div className="relative z-10 h-full flex flex-col">
+        {/* HEADER */}
+        <div className="absolute top-6 left-6 z-10">
+          <Link href="/" className="focus:outline-none">
+            <div className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-3 rounded-lg cursor-pointer">
+              <h1 className="text-2xl font-black text-black">Mnt-Stealth</h1>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* MAIN CONTENT - BENTO GRID */}
-      <div className="max-w-5xl mx-auto px-4 pb-20 mt-78">
-        <div className="text-center mb-12">
-          <Link href="/widget">
-            <button className="bg-[#ff6b35] border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] px-8 py-4 rounded-lg text-lg font-bold text-white hover:bg-[#ff6b35]/90 hover:shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px]">Get Started</button>
           </Link>
         </div>
-        <div className="grid grid-cols-12 gap-6 auto-rows-[180px]">
-          {/* Why Privacy Matters */}
-          <div className="col-span-12 md:col-span-6 row-span-2 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
-            <h2 className="text-xl font-black mb-4 text-black bg-white px-3 py-2 rounded-lg inline-block">Why Privacy Matters</h2>
-            <p className="text-sm text-white leading-relaxed">In the digital era, your financial privacy is non-negotiable. Our platform uses battle-tested, advanced cryptography so your transactions stay truly private—secure, anonymous, and transparent only to you.</p>
-          </div>
-          {/* Our Zero-Knowledge Edge */}
-          <div className="col-span-12 md:col-span-6 row-span-2 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
-            <h2 className="text-xl font-black mb-4 text-black bg-white px-3 py-2 rounded-lg inline-block">Our Zero-Knowledge Edge</h2>
-            <p className="text-sm text-white mb-4 leading-relaxed">Harness Mantle's advanced zero-knowledge proof technology for:</p>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center"><span className="w-2 h-2 rounded-full mr-3 bg-white"></span><span className="text-white font-semibold">Absolute transaction privacy</span></li>
-              <li className="flex items-center"><span className="w-2 h-2 rounded-full mr-3 bg-white"></span><span className="text-white font-semibold">Cutting-edge cryptographic security</span></li>
-              <li className="flex items-center"><span className="w-2 h-2 rounded-full mr-3 bg-white"></span><span className="text-white font-semibold">Lightning-fast settlements</span></li>
-              <li className="flex items-center"><span className="w-2 h-2 rounded-full mr-3 bg-white"></span><span className="text-white font-semibold">Decentralized, robust infrastructure</span></li>
-            </ul>
-          </div>
-          {/* How It Works */}
-          <div className="col-span-12 md:col-span-8 row-span-2 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
-            <h2 className="text-xl font-black mb-4 text-black bg-white px-3 py-2 rounded-lg inline-block">How It Works</h2>
-            <p className="text-sm text-white mb-4 leading-relaxed">Your path to unbreakable privacy is just three simple steps away:</p>
-            <div className="space-y-3">
-              <div className="flex items-start"><span className="text-lg font-extrabold text-white mr-3">1</span><div><div className="font-bold text-white mb-1 text-sm">Connect Wallet</div><div className="text-xs text-white">Securely link your digital wallet in seconds—private keys never leave your device.</div></div></div>
-              <div className="flex items-start"><span className="text-lg font-extrabold text-white mr-3">2</span><div><div className="font-bold text-white mb-1 text-sm">Enter Transaction</div><div className="text-xs text-white">Enter your recipient's address and the amount to send—no trails, no identifiers.</div></div></div>
-              <div className="flex items-start"><span className="text-lg font-extrabold text-white mr-3">3</span><div><div className="font-bold text-white mb-1 text-sm">Send Privately</div><div className="text-xs text-white">Your transaction is processed instantly, with full anonymity—powered by zero-knowledge proofs.</div></div></div>
-            </div>
-          </div>
-          {/* The Future of Private Transactions */}
-          <div className="col-span-12 md:col-span-4 row-span-1 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
-            <h3 className="text-lg font-black mb-2 text-black bg-white px-3 py-1 rounded-lg inline-block">The Future of Private Transactions</h3>
-            <p className="text-white text-sm mt-2">We're building the next generation of blockchain privacy. Mantle's zero-knowledge proofs and advanced cryptography deliver truly anonymous transactions.</p>
-          </div>
-          {/* Advanced Privacy */}
-          <div className="col-span-12 md:col-span-4 row-span-1 bg-[#141414] border-2 border-transparent shadow-[8px_8px_0_0_rgba(255,255,255,0)] p-8 rounded-2xl flex flex-col justify-center">
-            <h4 className="text-lg font-bold text-black mb-2 bg-white px-3 py-1 rounded-lg inline-block">Advanced Privacy</h4>
-            <p className="text-white text-sm mt-2">Zero-knowledge proofs keep your transactions completely private while maintaining security and transparency.</p>
-          </div>
-        </div>
 
-        {/* FAQ SECTION - moved up */}
-        <section className="relative z-10 px-4 py-16 border-t border-white/20 mt-12">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl text-white mb-8 text-center">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <div key={index} className="border border-white rounded-2xl overflow-hidden">
-                  <button
-                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full p-6 text-left flex items-center justify-between hover:bg-white/10 transition-all duration-300 focus:outline-none"
-                  >
-                    <span className="font-medium text-white text-lg">{faq.q}</span>
-                    <span className="text-2xl text-white">{expandedFaq === index ? '−' : '+'}</span>
+        {/* Main Content - Two Column Layout */}
+        <main className="flex-1 flex items-center justify-center px-4 sm:px-8 py-8 sm:py-12">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left Side - Text Content */}
+              <div className="space-y-6 sm:space-y-8">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white font-serif leading-tight">
+                  Private Transactions <span className="text-[#ff6b35]">on Mantle</span>
+                </h2>
+                <p className="text-base sm:text-lg lg:text-xl text-white leading-relaxed font-sans">
+                  Build the next generation of private, anonymous, and unlinkable transactions.
+                  <br/> Shape the future of privacy-powered payments on-chain.
+                </p>
+                <Link href="/widget">
+                  <button className="px-6 py-3 sm:px-8 sm:py-4 bg-[#ff6b35] border-2 border-white shadow-[6px_6px_0_0_rgba(255,255,255,1)] text-white rounded-lg font-bold hover:bg-[#ff6b35]/90 hover:shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-sm sm:text-base">
+                    Get Started
                   </button>
-                  {expandedFaq === index && (
-                    <div className="px-6 pb-6 text-white/80 animate-fade-in">{faq.a}</div>
-                  )}
-                </div>
-              ))}
+                </Link>
+              </div>
+
+              {/* Right Side - Mantle Logo */}
+              <div className="hidden lg:flex items-center justify-center">
+                <img 
+                  src="https://cryptologos.cc/logos/mantle-mnt-logo.png" 
+                  alt="Mantle MNT Logo" 
+                  className="w-full max-w-md h-auto"
+                />
+              </div>
             </div>
           </div>
-        </section>
-      </div>
+        </main>
       </div>
     </div>
   );

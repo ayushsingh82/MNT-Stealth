@@ -12,24 +12,24 @@ export const erc20Config = {
   abi: ERC20Abi,
 } as const;
 
-// Horizen testnet configuration
-export const horizenConfig = {
-  chainId: 845320009,
-  name: "Horizen Testnet",
-  network: "horizen-testnet",
+// Mantle testnet configuration
+export const mantleConfig = {
+  chainId: 5003,
+  name: "Mantle Testnet",
+  network: "mantle-testnet",
   nativeCurrency: {
     decimals: 18,
-    name: "ETH",
-    symbol: "ETH",
+    name: "MNT",
+    symbol: "MNT",
   },
   rpcUrls: {
-    public: { http: ["https://horizen-rpc-testnet.appchain.base.org"] },
-    default: { http: ["https://horizen-rpc-testnet.appchain.base.org"] },
+    public: { http: ["https://rpc.sepolia.mantle.xyz"] },
+    default: { http: ["https://rpc.sepolia.mantle.xyz"] },
   },
   blockExplorers: {
     default: { 
-      name: "Horizen Explorer", 
-      url: "https://horizen-explorer-testnet.appchain.base.org/" 
+      name: "Mantle Explorer", 
+      url: "https://explorer.testnet.mantle.xyz" 
     },
   },
   testnet: true,

@@ -1,25 +1,81 @@
-// Demo stealth address generation - no fluid library imports needed
+// Fluidkey stealth address generation using ERC5564
+import { ERC5564StealthAddressGenerator, type StealthMetaAddress } from '../erc5564/StealthAddressGenerator';
+import * as secp from '@noble/secp256k1';
+import { keccak256, toHex, toBytes } from 'viem';
+import { extractViewingPrivateKeyNode } from '../utils/extractViewingPrivateKeyNode';
+import { generateEphemeralPrivateKey } from '../utils/generateEphemeralPrivateKey';
 
 // Fluidkey Parameters as per documentation
-const chainId = 5003 // Mantle testnet chain ID
+const chainId = 5003 // Mantle Sepolia testnet chain ID
 const safeVersion = '1.3.0'
 const useDefaultAddress = true
 const threshold = 1
 
-async function createStealthAddress(signer: any, recipientPublicKeys: `0x${string}`[] = []) {
+/**
+ * Generate stealth meta-address from a signature
+ * This derives spending and viewing keys from the signature
+ */
+async function generateStealthMetaAddress(signer: any): Promise<StealthMetaAddress> {
+    try {
+        console.log("Starting generateStealthMetaAddress...");
+        
+        // Request signature from user
+        const message = "Generate stealth keys for Mnt-Stealth";
+        const signature = await signer.signMessage(message);
+        console.log("Signature generated:", signature);
+        
+        // Derive private keys from signature using keccak256
+        // Use the signature as entropy to generate deterministic keys
+        const signatureBytes = toBytes(signature);
+        const signatureHash = keccak256(toHex(signatureBytes));
+        
+        // Generate spending private key from signature hash
+        const spendingPrivateKey = signatureHash;
+        
+        // Generate viewing private key from a different derivation of the signature
+        const viewingKeyMessage = toBytes(signature + "viewing");
+        const viewingKeyHash = keccak256(toHex(viewingKeyMessage));
+        const viewingPrivateKey = viewingKeyHash;
+        
+        // Generate public keys from private keys
+        // secp.getPublicKey expects private key bytes (without 0x prefix for the slice)
+        const spendingPrivateKeyBytes = toBytes(spendingPrivateKey);
+        const viewingPrivateKeyBytes = toBytes(viewingPrivateKey);
+        
+        // Get public keys (compressed format)
+        const spendingPubKey = secp.getPublicKey(spendingPrivateKeyBytes, true);
+        const viewingPubKey = secp.getPublicKey(viewingPrivateKeyBytes, true);
+        
+        // Convert to hex format with 0x prefix
+        return {
+            spendingPubKey: `0x${Buffer.from(spendingPubKey).toString('hex')}` as `0x${string}`,
+            viewingPubKey: `0x${Buffer.from(viewingPubKey).toString('hex')}` as `0x${string}`
+        };
+        
+    } catch (error) {
+        console.error("Error generating stealth meta-address:", error);
+        throw error;
+    }
+}
+
+/**
+ * Generate a stealth address for the receiver
+ * This is what the receiver shares with the payer
+ */
+async function createStealthAddress(signer: any, recipientPublicKeys: `0x${string}`[] = []): Promise<string> {
     try {
         console.log("Starting createStealthAddress...");
         
-        // Generate signature for stealth key generation
-        const signature = await signer.signMessage("Generate stealth keys");
-        console.log("Signature generated:", signature);
+        // Generate stealth meta-address from signature
+        const stealthMetaAddress = await generateStealthMetaAddress(signer);
+        console.log("Stealth meta-address generated:", stealthMetaAddress);
         
-        // For demo purposes, create a simple stealth address from the signature
-        // This completely bypasses the fluid library's complex operations
-        const demoStealthAddress = `0x${signature.slice(2, 42)}` as `0x${string}`;
-        console.log("Demo stealth address created from signature:", demoStealthAddress);
+        // Use ERC5564 to generate stealth address from meta-address
+        const generator = new ERC5564StealthAddressGenerator();
+        const result = generator.generateStealthAddress(stealthMetaAddress);
         
-        return demoStealthAddress;
+        console.log("Stealth address generated:", result.stealthAddress);
+        return result.stealthAddress;
         
     } catch (error) {
         console.error("Error creating stealth address:", error);

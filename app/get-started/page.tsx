@@ -6,6 +6,7 @@ import Plasma from "../components/Plasma";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useWalletClient } from 'wagmi';
 import { parseEther, isAddress } from 'viem';
+import { createStealthAddress } from '../../components/helper/fluid';
 import imagesJson from '../widget/images.json';
 
 const images: Record<string, string> = imagesJson;
@@ -45,26 +46,27 @@ export default function GetStarted() {
     }
   }, [walletType, step]);
 
-  // Generate stealth address function
+  // Generate stealth address function using Fluidkey
   const generateStealthAddress = async () => {
+    if (!walletClient || !isConnected) {
+      alert('Please connect your wallet first');
+      return;
+    }
+
     setIsGenerating(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      const generateRealisticAddress = () => {
-        const chars = '0123456789abcdef';
-        let address = '0x';
-        for (let i = 0; i < 40; i++) {
-          address += chars[Math.floor(Math.random() * chars.length)];
-        }
-        const prefixes = ['1a', '2b', '3c', '4d', '5e', '6f', '7a', '8b', '9c', '0d'];
-        const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-        return address.substring(0, 4) + randomPrefix + address.substring(6);
-      };
-      const stealthAddress = generateRealisticAddress();
-      setStealthAddress(stealthAddress);
-    } catch (error) {
+      // Use Fluidkey to generate stealth address - this will request signature
+      const stealthAddr = await createStealthAddress(walletClient);
+      setStealthAddress(stealthAddr);
+    } catch (error: any) {
       console.error('Error generating stealth address:', error);
-      setStealthAddress('Error generating address');
+      // Check if user rejected the signature
+      if (error?.message?.includes('reject') || error?.code === 4001) {
+        setStealthAddress('');
+        alert('Signature request was cancelled. Please try again.');
+      } else {
+        setStealthAddress('Error generating address. Please try again.');
+      }
     } finally {
       setIsGenerating(false);
     }

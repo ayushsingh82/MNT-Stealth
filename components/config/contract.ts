@@ -12,24 +12,24 @@ export const erc20Config = {
   abi: ERC20Abi,
 } as const;
 
-// Mantle testnet configuration
+// Mantle Sepolia testnet configuration
 export const mantleConfig = {
   chainId: 5003,
-  name: "Mantle Testnet",
-  network: "mantle-testnet",
+  name: "Mantle Sepolia Testnet",
+  network: "mantle-sepolia-testnet",
   nativeCurrency: {
     decimals: 18,
     name: "MNT",
     symbol: "MNT",
   },
   rpcUrls: {
-    public: { http: ["https://rpc.sepolia.mantle.xyz"] },
-    default: { http: ["https://rpc.sepolia.mantle.xyz"] },
+    public: { http: ["https://mantle-sepolia.drpc.org"] },
+    default: { http: ["https://mantle-sepolia.drpc.org"] },
   },
   blockExplorers: {
     default: { 
-      name: "Mantle Explorer", 
-      url: "https://explorer.testnet.mantle.xyz" 
+      name: "Mantle Sepolia Explorer", 
+      url: "https://explorer.sepolia.mantle.xyz" 
     },
   },
   testnet: true,

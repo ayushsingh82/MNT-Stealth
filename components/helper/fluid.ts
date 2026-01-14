@@ -15,13 +15,16 @@ const threshold = 1
  * Generate stealth meta-address from a signature
  * This derives spending and viewing keys from the signature
  */
-async function generateStealthMetaAddress(signer: any): Promise<StealthMetaAddress> {
+async function generateStealthMetaAddress(signer: any, account: `0x${string}`): Promise<StealthMetaAddress> {
     try {
         console.log("Starting generateStealthMetaAddress...");
         
-        // Request signature from user
+        // Request signature from user using viem's signMessage format
         const message = "Generate stealth keys for Mnt-Stealth";
-        const signature = await signer.signMessage(message);
+        const signature = await signer.signMessage({
+            account,
+            message
+        });
         console.log("Signature generated:", signature);
         
         // Derive private keys from signature using keccak256
@@ -62,12 +65,12 @@ async function generateStealthMetaAddress(signer: any): Promise<StealthMetaAddre
  * Generate a stealth address for the receiver
  * This is what the receiver shares with the payer
  */
-async function createStealthAddress(signer: any, recipientPublicKeys: `0x${string}`[] = []): Promise<string> {
+async function createStealthAddress(signer: any, account: `0x${string}`, recipientPublicKeys: `0x${string}`[] = []): Promise<string> {
     try {
         console.log("Starting createStealthAddress...");
         
         // Generate stealth meta-address from signature
-        const stealthMetaAddress = await generateStealthMetaAddress(signer);
+        const stealthMetaAddress = await generateStealthMetaAddress(signer, account);
         console.log("Stealth meta-address generated:", stealthMetaAddress);
         
         // Use ERC5564 to generate stealth address from meta-address

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { BackgroundBeams } from '../components/ui/background-beams';
 import imagesJson from './images.json';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount, useWalletClient } from 'wagmi';
+import { useAccount, useWalletClient, useSignMessage } from 'wagmi';
 import { parseEther, isAddress } from 'viem';
 import { createStealthAddress } from '../../components/helper/fluid';
 
@@ -22,6 +22,7 @@ const TOKENS = [
 export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalletModal }: { showHistory: boolean; setShowHistory: (show: boolean) => void; showWalletModal?: boolean; setShowWalletModal?: (show: boolean) => void }) {
   const { address, isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
+  const { signMessageAsync } = useSignMessage();
   const [step, setStep] = useState(1);
   const [walletType, setWalletType] = useState<'personal' | 'merchant' | null>(null);
   const [selectedChain, setSelectedChain] = useState('');
@@ -79,15 +80,22 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
 
   // Generate stealth address function using Fluidkey
   const generateStealthAddress = async () => {
-    if (!walletClient || !isConnected) {
+    if (!isConnected || !address) {
       alert('Please connect your wallet first');
       return;
     }
 
     setIsGenerating(true);
     try {
+      // Create a signer wrapper that uses useSignMessage hook
+      const signer = {
+        signMessage: async (params: { account: `0x${string}`; message: string }) => {
+          return await signMessageAsync({ message: params.message });
+        }
+      };
+      
       // Use Fluidkey to generate stealth address - this will request signature
-      const stealthAddr = await createStealthAddress(walletClient);
+      const stealthAddr = await createStealthAddress(signer, address);
       setStealthAddress(stealthAddr);
     } catch (error: any) {
       console.error('Error generating stealth address:', error);
@@ -641,14 +649,6 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                                 className="flex-1 px-3 py-2 text-xs bg-white text-black rounded-lg hover:bg-gray-200 transition font-semibold"
                               >
                                 📋 Copy Address
-                              </button>
-                              <button
-                                onClick={() => {
-                                  alert('QR Code feature coming soon!');
-                                }}
-                                className="px-3 py-2 text-xs bg-[#ff6b35] text-white rounded-lg hover:bg-orange-400 transition font-semibold"
-                              >
-                                📱 QR Code
                               </button>
                             </div>
                             <div className="mt-3 text-xs text-gray-300 bg-blue-900 p-2 rounded border-l-4 border-blue-700">

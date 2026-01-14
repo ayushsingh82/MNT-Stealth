@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/navbar/Navbar";
 import Plasma from "../components/Plasma";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount, useWalletClient } from 'wagmi';
+import { useAccount, useWalletClient, useSignMessage } from 'wagmi';
 import { parseEther, isAddress } from 'viem';
 import { createStealthAddress } from '../../components/helper/fluid';
 import imagesJson from '../widget/images.json';
@@ -22,6 +22,7 @@ const TOKENS = [
 export default function GetStarted() {
   const { address, isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
+  const { signMessageAsync } = useSignMessage();
   const [step, setStep] = useState(1);
   const [walletType, setWalletType] = useState<'personal' | 'merchant' | null>(null);
   const [selectedChain, setSelectedChain] = useState('');
@@ -48,15 +49,22 @@ export default function GetStarted() {
 
   // Generate stealth address function using Fluidkey
   const generateStealthAddress = async () => {
-    if (!walletClient || !isConnected) {
+    if (!isConnected || !address) {
       alert('Please connect your wallet first');
       return;
     }
 
     setIsGenerating(true);
     try {
+      // Create a signer wrapper that uses useSignMessage hook
+      const signer = {
+        signMessage: async (params: { account: `0x${string}`; message: string }) => {
+          return await signMessageAsync({ message: params.message });
+        }
+      };
+      
       // Use Fluidkey to generate stealth address - this will request signature
-      const stealthAddr = await createStealthAddress(walletClient);
+      const stealthAddr = await createStealthAddress(signer, address);
       setStealthAddress(stealthAddr);
     } catch (error: any) {
       console.error('Error generating stealth address:', error);

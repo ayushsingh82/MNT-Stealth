@@ -248,60 +248,47 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
     <div className="w-full flex flex-col items-center">
       {/* History Screen */}
       {showHistory ? (
-        <div className="w-full max-w-md bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10 mt-12">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-white">Transaction History</h2>
-            <button
-              onClick={() => setShowHistory(false)}
-              className="bg-black border-2 border-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] px-4 py-2 rounded-lg cursor-pointer text-base font-bold text-white hover:bg-[#ff6b35] hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200"
-            >
-              Back
-            </button>
-          </div>
-          {isConnected && address && (
-            <div className="mb-6 p-4 bg-[#ff6b35]/10 rounded-lg border-2 border-white">
+        isConnected && address ? (
+          <div className="w-full max-w-md bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10 mt-12">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-white">Transaction History</h2>
+              <button
+                onClick={() => setShowHistory(false)}
+                className="bg-black border-2 border-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] px-4 py-2 rounded-lg cursor-pointer text-base font-bold text-white hover:bg-[#ff6b35] hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200"
+              >
+                Back
+              </button>
+            </div>
+            <div className="p-4 bg-[#ff6b35]/10 rounded-lg border-2 border-white">
               <div className="text-sm font-semibold text-white mb-2">Connected Wallet</div>
-              <div className="text-xs text-gray-300 font-mono mb-2">{address}</div>
+              <div className="text-xs text-gray-300 font-mono mb-4 break-all">{address}</div>
               <a 
                 href={`https://explorer.sepolia.mantle.xyz/address/${address}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-blue-400 hover:text-blue-200 underline"
+                className="inline-flex items-center px-4 py-2 bg-[#ff6b35] text-white rounded-lg hover:bg-[#ff6b35]/80 transition font-semibold text-sm"
               >
                 View on Explorer →
               </a>
             </div>
-          )}
-          <div className="space-y-3 max-h-[60vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-3 bg-[#ff6b35]/10 rounded-lg border-2 border-white">
-              <div className="flex items-center gap-3 flex-1">
-                <div className="w-10 h-10 bg-green-900 rounded-full flex items-center justify-center">
-                  <span className="text-green-300 font-bold">↓</span>
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm font-semibold text-white">Received</div>
-                  <div className="text-xs text-gray-300 font-mono">0x742d...d8b2</div>
-                  <div className="text-xs text-gray-400">2 hours ago</div>
-                </div>
-              </div>
-              <div className="text-right ml-2">
-                <div className="text-sm font-bold text-green-300">+100 USDC</div>
-                <div className="text-xs text-gray-400">Private</div>
-                <a 
-                  href={`https://explorer.sepolia.mantle.xyz/address/0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b2`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-blue-400 hover:text-blue-200 underline mt-1 block"
-                >
-                  View on Explorer
-                </a>
-              </div>
+          </div>
+        ) : (
+          <div className="w-full max-w-md bg-black border-2 border-white border-r-8 border-b-8 rounded-3xl p-10 mt-12">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-white">Transaction History</h2>
+              <button
+                onClick={() => setShowHistory(false)}
+                className="bg-black border-2 border-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] px-4 py-2 rounded-lg cursor-pointer text-base font-bold text-white hover:bg-[#ff6b35] hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200"
+              >
+                Back
+              </button>
             </div>
-            <div className="text-center py-4 text-gray-400 text-sm">
-              No more transactions to display
+            <div className="text-center py-8">
+              <p className="text-white mb-4">Please connect your wallet to view transaction history</p>
+              <ConnectButton />
             </div>
           </div>
-        </div>
+        )
       ) : (
         <>
           {/* Heading and subtitle OUTSIDE the box */}
@@ -461,12 +448,12 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                             <div className="text-sm font-semibold">{transactionStatus}</div>
                             {transactionHash && (
                               <a
-                                href={`https://amoy.polygonscan.com/tx/${transactionHash}`}
+                                href={`https://explorer.sepolia.mantle.xyz/tx/${transactionHash}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-blue-600 hover:text-blue-800 underline mt-1 block"
+                                className="text-xs text-blue-400 hover:text-blue-200 underline mt-1 block"
                               >
-                                View on PolygonScan →
+                                View on Explorer →
                               </a>
                             )}
                           </div>
@@ -524,12 +511,12 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                             <div className="text-sm font-semibold">{transactionStatus}</div>
                             {transactionHash && (
                               <a
-                                href={`https://amoy.polygonscan.com/tx/${transactionHash}`}
+                                href={`https://explorer.sepolia.mantle.xyz/tx/${transactionHash}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-blue-600 hover:text-blue-800 underline mt-1 block"
+                                className="text-xs text-blue-400 hover:text-blue-200 underline mt-1 block"
                               >
-                                View on PolygonScan →
+                                View on Explorer →
                               </a>
                             )}
                           </div>
@@ -599,12 +586,12 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                             <div className="text-sm font-semibold">{transactionStatus}</div>
                             {transactionHash && (
                               <a
-                                href={`https://amoy.polygonscan.com/tx/${transactionHash}`}
+                                href={`https://explorer.sepolia.mantle.xyz/tx/${transactionHash}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-blue-600 hover:text-blue-800 underline mt-1 block"
+                                className="text-xs text-blue-400 hover:text-blue-200 underline mt-1 block"
                               >
-                                View on PolygonScan →
+                                View on Explorer →
                               </a>
                             )}
                           </div>

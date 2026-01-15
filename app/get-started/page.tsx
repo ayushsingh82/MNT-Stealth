@@ -298,12 +298,12 @@ export default function GetStarted() {
                             <div className="text-sm font-semibold">{transactionStatus}</div>
                             {transactionHash && (
                               <a
-                                href={`https://amoy.polygonscan.com/tx/${transactionHash}`}
+                                href={`https://explorer.sepolia.mantle.xyz/tx/${transactionHash}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-blue-600 hover:text-blue-800 underline mt-1 block"
+                                className="text-xs text-blue-400 hover:text-blue-200 underline mt-1 block"
                               >
-                                View on PolygonScan →
+                                View on Explorer →
                               </a>
                             )}
                           </div>

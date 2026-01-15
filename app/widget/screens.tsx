@@ -5,8 +5,9 @@ import { motion } from 'framer-motion';
 import { BackgroundBeams } from '../components/ui/background-beams';
 import imagesJson from './images.json';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount, useWalletClient, useSignMessage } from 'wagmi';
+import { useAccount, useWalletClient, useSignMessage, useChainId, useSwitchChain } from 'wagmi';
 import { parseEther, isAddress } from 'viem';
+import { mantleSepoliaTestnet } from 'wagmi/chains';
 import { createStealthAddress } from '../../components/helper/fluid';
 
 const images: Record<string, string> = imagesJson;
@@ -23,6 +24,8 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
   const { address, isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
   const { signMessageAsync } = useSignMessage();
+  const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
   const [step, setStep] = useState(1);
   const [walletType, setWalletType] = useState<'personal' | 'merchant' | null>(null);
   const [selectedChain, setSelectedChain] = useState('');
@@ -168,6 +171,19 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
     try {
       setIsSendingTransaction(true);
       setTransactionStatus('Validating batch transaction...');
+      
+      // Check if wallet is on the correct chain
+      if (chainId !== mantleSepoliaTestnet.id) {
+        setTransactionStatus('Please switch to Mantle Sepolia Testnet');
+        try {
+          await switchChain({ chainId: mantleSepoliaTestnet.id });
+          setTransactionStatus('Switched to Mantle Sepolia. Please try again.');
+        } catch (switchError) {
+          throw new Error('Please switch your wallet to Mantle Sepolia Testnet (Chain ID: 5003)');
+        }
+        return;
+      }
+      
       const amountNum = parseFloat(batchAmount);
       if (isNaN(amountNum) || amountNum <= 0) {
         throw new Error('Invalid amount');
@@ -177,10 +193,14 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
       setTransactionStatus(`Sending ${selectedTeamMembers.length} transaction(s)... Please confirm in your wallet`);
       const hashes: string[] = [];
       for (const memberAddress of selectedTeamMembers) {
+        if (!isAddress(memberAddress)) {
+          throw new Error(`Invalid address: ${memberAddress}`);
+        }
         const hash = await walletClient.sendTransaction({
           account: address,
           to: memberAddress as `0x${string}`,
-          value
+          value,
+          chain: mantleSepoliaTestnet
         });
         hashes.push(hash);
       }
@@ -188,9 +208,17 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
       setTransactionStatus(`✅ Batch transaction sent! ${selectedTeamMembers.length} transaction(s) completed. Hash: ${hashes[0]}`);
       setSelectedTeamMembers([]);
       setBatchAmount('');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Batch transaction error:', error);
-      setTransactionStatus(`❌ Batch transaction failed: ${(error as Error).message}`);
+      let errorMessage = 'Batch transaction failed';
+      if (error?.message) {
+        errorMessage = error.message;
+      } else if (error?.shortMessage) {
+        errorMessage = error.shortMessage;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      setTransactionStatus(`❌ ${errorMessage}`);
     } finally {
       setIsSendingTransaction(false);
     }
@@ -218,6 +246,19 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
     try {
       setIsSendingTransaction(true);
       setTransactionStatus('Validating transaction...');
+      
+      // Check if wallet is on the correct chain
+      if (chainId !== mantleSepoliaTestnet.id) {
+        setTransactionStatus('Please switch to Mantle Sepolia Testnet');
+        try {
+          await switchChain({ chainId: mantleSepoliaTestnet.id });
+          setTransactionStatus('Switched to Mantle Sepolia. Please try again.');
+        } catch (switchError) {
+          throw new Error('Please switch your wallet to Mantle Sepolia Testnet (Chain ID: 5003)');
+        }
+        return;
+      }
+      
       if (!isAddress(recipientAddress)) {
         throw new Error('Invalid recipient address');
       }
@@ -227,18 +268,29 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
       }
       const value = parseEther(amount);
       setTransactionStatus('Sending transaction... Please confirm in your wallet');
+      
       const hash = await walletClient.sendTransaction({
         account: address,
         to: recipientAddress as `0x${string}`,
-        value
+        value,
+        chain: mantleSepoliaTestnet
       });
+      
       setTransactionHash(hash);
       setTransactionStatus(`✅ Transaction sent! Hash: ${hash}`);
       setRecipientAddress('');
       setAmount('');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction error:', error);
-      setTransactionStatus(`❌ Transaction failed: ${(error as Error).message}`);
+      let errorMessage = 'Transaction failed';
+      if (error?.message) {
+        errorMessage = error.message;
+      } else if (error?.shortMessage) {
+        errorMessage = error.shortMessage;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      setTransactionStatus(`❌ ${errorMessage}`);
     } finally {
       setIsSendingTransaction(false);
     }
@@ -791,9 +843,13 @@ export function Fns({ showHistory, setShowHistory, showWalletModal, setShowWalle
                       <div className={`text-base ${walletType === 'personal' ? 'text-white' : 'text-gray-300'}`}>For personal use</div>
                     </button>
                     <button
-                      className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md hover:shadow-xl focus:outline-none ${walletType === 'merchant' ? 'bg-[#ff6b35] text-white' : 'bg-black text-white hover:bg-gray-800 border-white'}`}
-                      onClick={() => setWalletType('merchant')}
+                      className={`py-3 px-6 border-4 border-white rounded-none font-semibold text-lg text-left transition shadow-md focus:outline-none relative ${walletType === 'merchant' ? 'bg-[#ff6b35] text-white' : 'bg-black text-white border-white'} opacity-60 cursor-not-allowed`}
+                      onClick={() => {}}
+                      disabled
                     >
+                      <div className="absolute top-2 right-2">
+                        <span className="text-xs font-bold text-[#ff6b35] bg-black px-2 py-1 rounded border border-[#ff6b35]">Coming Soon</span>
+                      </div>
                       <div className="font-bold text-xl mb-1">Team</div>
                       <div className={`text-base ${walletType === 'merchant' ? 'text-white' : 'text-gray-300'}`}>need pro access</div>
                     </button>

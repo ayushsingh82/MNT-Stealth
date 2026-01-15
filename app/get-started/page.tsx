@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/navbar/Navbar";
 import Plasma from "../components/Plasma";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount, useWalletClient, useSignMessage } from 'wagmi';
+import { useAccount, useWalletClient, useSignMessage, useChainId, useSwitchChain } from 'wagmi';
 import { parseEther, isAddress } from 'viem';
+import { mantleSepoliaTestnet } from 'wagmi/chains';
 import { createStealthAddress } from '../../components/helper/fluid';
 import imagesJson from '../widget/images.json';
 
@@ -23,6 +24,8 @@ export default function GetStarted() {
   const { address, isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
   const { signMessageAsync } = useSignMessage();
+  const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
   const [step, setStep] = useState(1);
   const [walletType, setWalletType] = useState<'personal' | 'merchant' | null>(null);
   const [selectedChain, setSelectedChain] = useState('');
@@ -95,6 +98,19 @@ export default function GetStarted() {
     try {
       setIsSendingTransaction(true);
       setTransactionStatus('Validating transaction...');
+      
+      // Check if wallet is on the correct chain
+      if (chainId !== mantleSepoliaTestnet.id) {
+        setTransactionStatus('Please switch to Mantle Sepolia Testnet');
+        try {
+          await switchChain({ chainId: mantleSepoliaTestnet.id });
+          setTransactionStatus('Switched to Mantle Sepolia. Please try again.');
+        } catch (switchError) {
+          throw new Error('Please switch your wallet to Mantle Sepolia Testnet (Chain ID: 5003)');
+        }
+        return;
+      }
+      
       if (!isAddress(recipientAddress)) {
         throw new Error('Invalid recipient address');
       }
@@ -104,18 +120,29 @@ export default function GetStarted() {
       }
       const value = parseEther(amount);
       setTransactionStatus('Sending transaction... Please confirm in your wallet');
+      
       const hash = await walletClient.sendTransaction({
         account: address,
         to: recipientAddress as `0x${string}`,
-        value
+        value,
+        chain: mantleSepoliaTestnet
       });
+      
       setTransactionHash(hash);
       setTransactionStatus(`✅ Transaction sent! Hash: ${hash}`);
       setRecipientAddress('');
       setAmount('');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction error:', error);
-      setTransactionStatus(`❌ Transaction failed: ${(error as Error).message}`);
+      let errorMessage = 'Transaction failed';
+      if (error?.message) {
+        errorMessage = error.message;
+      } else if (error?.shortMessage) {
+        errorMessage = error.shortMessage;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      setTransactionStatus(`❌ ${errorMessage}`);
     } finally {
       setIsSendingTransaction(false);
     }

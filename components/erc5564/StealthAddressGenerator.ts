@@ -57,7 +57,8 @@ export class ERC5564StealthAddressGenerator {
       const viewTag = `0x${hashedSecret.slice(2, 4)}` as `0x${string}`;
 
       // 6. Multiply hashed secret with generator point: G * h
-      const hashedSecretPoint = secp.Point.fromPrivateKey(BigInt(hashedSecret));
+      const hashedSecretBytes = toBytes(hashedSecret);
+      const hashedSecretPoint = secp.Point.fromPrivateKey(hashedSecretBytes);
 
       // 7. Compute stealth public key: P = G * h + S
       const spendingPubKeyPoint = secp.Point.fromHex(stealthMetaAddress.spendingPubKey.slice(2));
@@ -106,7 +107,8 @@ export class ERC5564StealthAddressGenerator {
       const viewTag = `0x${hashedSecret.slice(2, 4)}`;
 
       // 4. Multiply hashed secret with generator point: G * h
-      const hashedSecretPoint = secp.Point.fromPrivateKey(BigInt(hashedSecret));
+      const hashedSecretBytes = toBytes(hashedSecret);
+      const hashedSecretPoint = secp.Point.fromPrivateKey(hashedSecretBytes);
 
       // 5. Compute stealth public key: P = G * h + S
       const spendingPubKeyPoint = secp.Point.fromHex(spendingPubKey.slice(2));

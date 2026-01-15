@@ -34,7 +34,6 @@ They hide the receiver's identity on public block explorers while maintaining co
 
 - **Stealth Address Generation** — Instantly create unlinkable addresses
 - **One-time Use Addresses** — Maximum unlinkability per transaction
-- **View Tags** — Efficient fund scanning for receivers
 - **Ephemeral Keys** — Temporary cryptographic keys for every payment
 - **SECP256k1 Cryptography** — Proven, secure, and widely adopted standard
 - **Mantle Sepolia Testnet Integration** — Full EVM compatibility on chain ID 5003
@@ -49,6 +48,7 @@ They hide the receiver's identity on public block explorers while maintaining co
 - **Block Explorer**: `https://explorer.sepolia.mantle.xyz`
 - **Standard**: ERC-5564 Stealth Addresses
 - **Tech Stack**: FluidKey Account Kit + Cryptographic Infrastructure
+--**txn on testnet** : https://sepolia.mantlescan.xyz/tx/0x24a63b808d9c3395995cb628fc32779460fb8a1f0af980dd988a9dd998e42396
 
 ---
 
